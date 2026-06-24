@@ -16,13 +16,13 @@
       --text-secondary: #94a3b8;
       --text-muted:     #64748b;
       
-      /* Liquid Glass Tokens */
-      --glass-bg:       rgba(255, 255, 255, 0.03);
-      --glass-bg-hover: rgba(255, 255, 255, 0.08);
-      --glass-border:   rgba(255, 255, 255, 0.1);
+      /* Liquid Glass Tokens (Adjusted for lower clarity/more frost) */
+      --glass-bg:       rgba(255, 255, 255, 0.08);
+      --glass-bg-hover: rgba(255, 255, 255, 0.12);
+      --glass-border:   rgba(255, 255, 255, 0.15);
       --glass-border-hl:rgba(255, 255, 255, 0.25);
-      --glass-shadow:   0 8px 32px 0 rgba(0, 0, 0, 0.3);
-      --glass-blur:     blur(24px) saturate(180%);
+      --glass-shadow:   0 8px 32px 0 rgba(0, 0, 0, 0.4);
+      --glass-blur:     blur(32px) saturate(180%);
       
       /* Accents */
       --accent:         #FF2E63;
@@ -46,18 +46,18 @@
       --ai-gradient:    linear-gradient(135deg, #7C3AED, #00E5FF);
     }
 
-    /* Light Theme Overrides */
+    /* Light Theme Overrides (Adjusted for lower clarity/more frost) */
     body.light-theme {
       --bg-base:        #f0f4f8;
       --text-primary:   #0f172a;
       --text-secondary: #475569;
       --text-muted:     #94a3b8;
       
-      --glass-bg:       rgba(255, 255, 255, 0.5);
-      --glass-bg-hover: rgba(255, 255, 255, 0.8);
+      --glass-bg:       rgba(255, 255, 255, 0.65);
+      --glass-bg-hover: rgba(255, 255, 255, 0.85);
       --glass-border:   rgba(255, 255, 255, 0.6);
-      --glass-border-hl:rgba(0, 0, 0, 0.1);
-      --glass-shadow:   0 8px 32px 0 rgba(31, 38, 135, 0.07);
+      --glass-border-hl:rgba(0, 0, 0, 0.15);
+      --glass-shadow:   0 8px 32px 0 rgba(31, 38, 135, 0.09);
       
       --star-empty:     #cbd5e1;
     }
@@ -159,10 +159,10 @@
     .search-container { position: relative; width: 40%; max-width: 500px; min-width: 260px; }
     .search-wrapper {
       display: flex; align-items: center; padding: 4px 16px;
-      background: rgba(255, 255, 255, 0.05); border-radius: 100px;
+      background: rgba(255, 255, 255, 0.08); border-radius: 100px;
       border: 1px solid var(--glass-border);
     }
-    body.light-theme .search-wrapper { background: rgba(0,0,0,0.05); }
+    body.light-theme .search-wrapper { background: rgba(0,0,0,0.08); }
     .search-wrapper:focus-within {
       background: var(--glass-bg-hover); border-color: var(--cyan);
       box-shadow: 0 0 0 4px var(--cyan-dim);
@@ -184,7 +184,7 @@
 
     .search-view-bar {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 16px; border-bottom: 1px solid var(--glass-border); background: rgba(0,0,0,0.1);
+      padding: 12px 16px; border-bottom: 1px solid var(--glass-border); background: rgba(0,0,0,0.15);
     }
     .search-count-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
     .search-view-btns { display: flex; gap: 6px; }
@@ -219,7 +219,7 @@
 
     .load-more-btn {
       text-align: center; padding: 14px; cursor: pointer; font-weight: 700; font-size: 13px; color: var(--cyan);
-      border-top: 1px solid var(--glass-border); background: rgba(0,0,0,0.1); transition: 0.2s;
+      border-top: 1px solid var(--glass-border); background: rgba(0,0,0,0.15); transition: 0.2s;
     }
     .load-more-btn:hover { background: var(--glass-bg-hover); color: #fff; }
 
@@ -293,7 +293,7 @@
     .badge-status { background: var(--cyan-dim); color: var(--cyan); border-color: rgba(0,229,255,0.3); }
 
     .hero-extended-info {
-      background: rgba(0,0,0,0.15); padding: 20px; border-radius: var(--radius-sm); margin-bottom: 24px;
+      background: rgba(0,0,0,0.25); padding: 20px; border-radius: var(--radius-sm); margin-bottom: 24px;
       border: 1px solid var(--glass-border); display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;
     }
     body.light-theme .hero-extended-info { background: rgba(255,255,255,0.4); }
@@ -310,8 +310,8 @@
     }
     .episode-progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .episode-progress-title { font-size: 15px; font-weight: 800; color: var(--cyan); }
-    .progress-container { width: 100%; background: rgba(0,0,0,0.2); border-radius: 10px; height: 8px; overflow: hidden; }
-    body.light-theme .progress-container { background: rgba(0,0,0,0.05); }
+    .progress-container { width: 100%; background: rgba(0,0,0,0.3); border-radius: 10px; height: 8px; overflow: hidden; }
+    body.light-theme .progress-container { background: rgba(0,0,0,0.08); }
     .progress-bar { height: 100%; background: linear-gradient(90deg, var(--cyan), #84FFFF); border-radius: 10px; transition: width 0.8s cubic-bezier(0.34,1.56,0.64,1); }
 
     /* Review & Voice */
@@ -321,7 +321,7 @@
     }
     .audio-controls { display: flex; justify-content: space-between; margin-bottom: 16px; align-items: center; }
     .review-textarea {
-      width: 100%; min-height: 100px; resize: vertical; background: rgba(0,0,0,0.1); border: 1px solid var(--glass-border);
+      width: 100%; min-height: 100px; resize: vertical; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border);
       border-radius: var(--radius-sm); padding: 16px; font-size: 14px; line-height: 1.8; color: var(--text-primary); outline: none; transition: 0.3s;
       font-family: inherit;
     }
@@ -379,7 +379,7 @@
     .movie-card.status-Watching::after  { background: var(--cyan); opacity: 1; }
     .movie-card.status-Completed::after { background: var(--green); opacity: 1; }
 
-    .card-poster-wrapper { position: relative; width: 100%; aspect-ratio: 2/3; background: rgba(0,0,0,0.2); }
+    .card-poster-wrapper { position: relative; width: 100%; aspect-ratio: 2/3; background: rgba(0,0,0,0.3); }
     .card-poster-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; }
     
     .card-overlay {
@@ -390,8 +390,8 @@
     .movie-card:hover .card-overlay { opacity: 1; }
 
     .card-imdb-badge {
-      position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
-      color: var(--amber); font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(255,196,0,0.3);
+      position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+      color: var(--amber); font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(255,196,0,0.4);
     }
 
     .card-info { padding: 16px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
@@ -404,7 +404,7 @@
        MODALS
     ============================================================ */
     .modal-backdrop {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px);
+      position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(12px);
       z-index: 1000; display: flex; justify-content: center; align-items: center;
       opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
     }
@@ -439,8 +439,8 @@
 
     .toggle-switch { position: relative; display: inline-block; width: 50px; height: 28px; flex-shrink: 0; }
     .toggle-switch input { opacity: 0; width: 0; height: 0; }
-    .toggle-slider { position: absolute; cursor: pointer; inset: 0; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); border-radius: 30px; transition: 0.3s; }
-    body.light-theme .toggle-slider { background: rgba(0,0,0,0.1); }
+    .toggle-slider { position: absolute; cursor: pointer; inset: 0; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 30px; transition: 0.3s; }
+    body.light-theme .toggle-slider { background: rgba(0,0,0,0.15); }
     .toggle-slider:before { content: ""; position: absolute; height: 20px; width: 20px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s cubic-bezier(0.34,1.56,0.64,1); }
     .toggle-switch input:checked + .toggle-slider { background: var(--cyan); border-color: var(--cyan); }
     .toggle-switch input:checked + .toggle-slider:before { transform: translateX(22px); }
@@ -464,7 +464,7 @@
     }
     .ai-chat-panel.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
 
-    .ai-chat-header { padding: 16px 20px; background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; }
+    .ai-chat-header { padding: 16px 20px; background: rgba(0,0,0,0.25); border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; }
     body.light-theme .ai-chat-header { background: rgba(255,255,255,0.3); }
     .ai-chat-header-title { font-weight: 900; font-size: 15px; }
     .ai-chat-header-status { font-size: 12px; color: var(--green); margin-top: 2px; }
@@ -479,7 +479,7 @@
     .ai-bubble.user .ai-bubble-content { background: var(--ai-gradient); color: white; border-radius: 16px 4px 16px 16px; box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3); }
     .ai-bubble.bot .ai-bubble-content { background: var(--glass-bg-hover); border: 1px solid var(--glass-border); border-radius: 4px 16px 16px 16px; backdrop-filter: blur(10px); }
 
-    .ai-chat-input-row { padding: 12px 16px; border-top: 1px solid var(--glass-border); display: flex; gap: 10px; background: rgba(0,0,0,0.2); }
+    .ai-chat-input-row { padding: 12px 16px; border-top: 1px solid var(--glass-border); display: flex; gap: 10px; background: rgba(0,0,0,0.25); }
     body.light-theme .ai-chat-input-row { background: rgba(255,255,255,0.3); }
     .ai-chat-input { flex: 1; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 100px; padding: 12px 20px; color: var(--text-primary); font-size: 14px; outline: none; font-family: inherit; }
     .ai-chat-send { width: 44px; height: 44px; border-radius: 50%; background: var(--ai-gradient); border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4); }
@@ -488,12 +488,12 @@
     .quality-block-title { font-size: 15px; font-weight: 800; padding-bottom: 8px; border-bottom: 2px solid var(--glass-border); margin-bottom: 12px; margin-top: 16px; }
     .quality-block-title.softsub { color: var(--cyan); }
     .quality-block-title.dubbed { color: var(--green); }
-    .movie-quality-line { display: block; font-size: 14px; padding: 12px 16px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); color: var(--text-primary); text-decoration: none; font-weight: 600; margin-bottom: 8px; transition: 0.2s; }
+    .movie-quality-line { display: block; font-size: 14px; padding: 12px 16px; background: rgba(0,0,0,0.25); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); color: var(--text-primary); text-decoration: none; font-weight: 600; margin-bottom: 8px; transition: 0.2s; }
     body.light-theme .movie-quality-line { background: rgba(255,255,255,0.5); }
     .movie-quality-line:hover { background: var(--glass-bg-hover); border-color: var(--cyan); transform: translateX(-4px); }
 
     /* Toast */
-    .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: rgba(15,17,26,0.9); border: 1px solid var(--glass-border); color: white; padding: 12px 24px; border-radius: 100px; font-size: 14px; font-weight: 700; z-index: 2000; opacity: 0; transition: 0.4s cubic-bezier(0.34,1.56,0.64,1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
+    .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: rgba(15,17,26,0.95); border: 1px solid var(--glass-border); color: white; padding: 12px 24px; border-radius: 100px; font-size: 14px; font-weight: 700; z-index: 2000; opacity: 0; transition: 0.4s cubic-bezier(0.34,1.56,0.64,1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     .toast-success { border-color: var(--green); box-shadow: 0 4px 20px rgba(0,230,118,0.3); }
 
@@ -629,7 +629,7 @@
         <button class="btn" id="globalAiAnalyzeBtn" onclick="generateGlobalAIAnalysis(false)">✨ شروع آنالیز</button>
       </div>
     </div>
-    <div id="globalAiResponse" style="font-size:15px; line-height:2; white-space:pre-wrap; color:var(--text-primary); padding:16px; background:rgba(0,0,0,0.1); border-radius:var(--radius-sm); border:1px solid var(--glass-border);">درخواست آنالیز را صادر کنید...</div>
+    <div id="globalAiResponse" style="font-size:15px; line-height:2; white-space:pre-wrap; color:var(--text-primary); padding:16px; background:rgba(0,0,0,0.15); border-radius:var(--radius-sm); border:1px solid var(--glass-border);">درخواست آنالیز را صادر کنید...</div>
   </section>
 
   <div class="modal-backdrop" id="celebrationModal">
@@ -699,7 +699,7 @@
       </div>
 
       <div class="form-group" style="margin-top: 24px;">
-        <div class="setting-row" style="background: rgba(0,0,0,0.1); border-radius: var(--radius-sm); border:1px solid var(--glass-border); padding: 12px 16px;">
+        <div class="setting-row" style="background: rgba(0,0,0,0.15); border-radius: var(--radius-sm); border:1px solid var(--glass-border); padding: 12px 16px;">
           <label class="toggle-switch">
             <input type="checkbox" id="glassEffectsSetting" checked onchange="previewGlassToggle(this.checked)">
             <span class="toggle-slider"></span>
@@ -717,12 +717,6 @@
           <option value="en">English Plot</option>
           <option value="fa">فارسی (ترجمه خودکار با AI)</option>
         </select>
-      </div>
-
-      <div class="form-group" style="margin-top: 24px;">
-        <label style="color: var(--cyan);">مدل هوش مصنوعی (API Cloud):</label>
-        <input type="text" id="aiModelSetting" class="form-control" placeholder="e.g. google/gemma-4-31b-it:free">
-        <p style="font-size:12px; color:var(--text-muted); margin-top:8px;">تنها استفاده از مدل‌های ابری (Cloud API) مجاز است. مدل‌های محلی (Local) غیرفعال هستند.</p>
       </div>
 
       <div class="form-group" style="margin-top: 24px;">
@@ -765,7 +759,7 @@
     
     <div id="aiChatMessages" class="ai-chat-messages"></div>
 
-    <div style="padding:12px; display:flex; gap:8px; overflow-x:auto; flex-shrink:0; background:rgba(0,0,0,0.1); border-top:1px solid var(--glass-border);">
+    <div style="padding:12px; display:flex; gap:8px; overflow-x:auto; flex-shrink:0; background:rgba(0,0,0,0.15); border-top:1px solid var(--glass-border);">
       <button class="btn btn-secondary" style="padding:6px 12px; font-size:12px; white-space:nowrap; border-radius:100px;" onclick="sendQuickAI('📚 خلاصه کتابخانه')">📚 خلاصه آرشیو</button>
       <button class="btn btn-secondary" style="padding:6px 12px; font-size:12px; white-space:nowrap; border-radius:100px;" onclick="sendQuickAI('🎯 پیشنهاد بعدی')">🎯 پیشنهاد بعدی</button>
       <button class="btn btn-secondary" style="padding:6px 12px; font-size:12px; white-space:nowrap; border-radius:100px;" onclick="sendQuickAI('📊 تحلیل آماری بده')">📊 تحلیل آماری</button>
@@ -784,7 +778,7 @@
     const OMDB_KEY    = "4b0254f3";
     const AI_API_BASE = "https://openrouter.ai/api/v1";
     const AI_API_KEY  = "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";
-    const DEFAULT_AI_MODEL = "google/gemma-4-31b-it:free";
+    const DEFAULT_AI_MODEL = "llama-3.3-70b-versatile"; // Hardcoded specific API model
     const BACKUP_ARCHIVE_URL = "https://www.my-f2m.top";
 
     // ==================== IndexedDB ====================
@@ -833,8 +827,7 @@
       audioReviews:  JSON.parse(localStorage.getItem("cinetrack_audio_reviews") || "{}"),
       uiLanguage:    localStorage.getItem("cinetrack_ui_lang") || "en",
       theme:         localStorage.getItem("cinetrack_theme") || "dark",
-      glassEffects:  localStorage.getItem("cinetrack_glass") !== "false",
-      aiModel:       localStorage.getItem("cinetrack_ai_model") || DEFAULT_AI_MODEL
+      glassEffects:  localStorage.getItem("cinetrack_glass") !== "false"
     };
 
     let searchDebounceTimer   = null;
@@ -920,12 +913,11 @@
     async function callAIAPIWithMessages(messages, temperature = 0.7) {
       const key = AI_API_KEY.trim();
       const baseUrl = AI_API_BASE.replace(/\/+$/, "");
-      const modelToUse = state.aiModel || DEFAULT_AI_MODEL;
       if (!key || key === "your-openrouter-api-key-here") throw new Error("⚠️ لطفاً کلید API را تنظیم کنید.");
       const res = await fetch(`${baseUrl}/chat/completions`, {
         method: "POST",
         headers: { "Content-Type":"application/json", "Authorization":`Bearer ${key}`, "HTTP-Referer":location.href, "X-Title":"CineTrack" },
-        body: JSON.stringify({ model: modelToUse, messages, temperature, max_tokens:1500 })
+        body: JSON.stringify({ model: DEFAULT_AI_MODEL, messages, temperature, max_tokens:1500 })
       });
       if (!res.ok) {
         let errMsg = `خطای HTTP ${res.status}`;
@@ -1543,7 +1535,7 @@
           });
           let out = `<div><div class="quality-block-title ${blockClass}">${label}</div>`;
           Object.keys(seasons).map(Number).sort((a,b)=>a-b).forEach(sn => {
-            out += `<div style="background:rgba(0,0,0,0.15); border:1px solid var(--glass-border); border-radius:var(--radius-sm); padding:16px; margin-bottom:12px;"><div style="font-size:15px; font-weight:800; color:var(--text-secondary); margin-bottom:12px;">Season ${sn}</div><div style="font-size:14px; font-weight:600; line-height:2; color:var(--text-primary); display:flex; flex-wrap:wrap; gap:8px;">`;
+            out += `<div style="background:rgba(0,0,0,0.2); border:1px solid var(--glass-border); border-radius:var(--radius-sm); padding:16px; margin-bottom:12px;"><div style="font-size:15px; font-weight:800; color:var(--text-secondary); margin-bottom:12px;">Season ${sn}</div><div style="font-size:14px; font-weight:600; line-height:2; color:var(--text-primary); display:flex; flex-wrap:wrap; gap:8px;">`;
             out += seasons[sn].map(m => `<a href="${m.url}" target="_blank" style="color:var(--cyan); text-decoration:none; background:var(--glass-bg); padding:4px 10px; border-radius:6px; border:1px solid var(--glass-border);">📥 ${cleanQualityStr(m.text||m.url)}</a>`).join('');
             out += `</div></div>`;
           });
@@ -1713,7 +1705,7 @@
               <div class="episode-progress-block liquid-glass">
                 <div class="episode-progress-header">
                   <span class="episode-progress-title">🍿 پیشرفت سریال</span>
-                  <span style="font-size:14px; font-weight:700; background:rgba(0,0,0,0.2); padding:4px 12px; border-radius:100px;">فصل ${item.season}، قسمت ${item.episode}</span>
+                  <span style="font-size:14px; font-weight:700; background:rgba(0,0,0,0.3); border:1px solid var(--glass-border); padding:4px 12px; border-radius:100px;">فصل ${item.season}، قسمت ${item.episode}</span>
                 </div>
                 <div class="progress-container"><div class="progress-bar" style="width:${progressPct}%"></div></div>
                 <div style="text-align:left; font-size:13px; color:var(--text-secondary); margin-top:8px; font-weight:600;">${progressPct}% تکمیل</div>
@@ -1837,8 +1829,6 @@
       if (themeSelect) themeSelect.value = state.theme;
       const glassCheck = document.getElementById("glassEffectsSetting");
       if (glassCheck) glassCheck.checked = state.glassEffects;
-      const aiModelInput = document.getElementById("aiModelSetting");
-      if (aiModelInput) aiModelInput.value = state.aiModel;
     }
 
     function saveSettings() {
@@ -1851,12 +1841,6 @@
       state.glassEffects = glassEnabled;
       localStorage.setItem("cinetrack_glass", glassEnabled ? "true" : "false");
       applyGlassEffects(glassEnabled);
-      
-      const aiModelStr = document.getElementById("aiModelSetting").value.trim();
-      if(aiModelStr) {
-        state.aiModel = aiModelStr;
-        localStorage.setItem("cinetrack_ai_model", aiModelStr);
-      }
       
       closeModal('settingsModal'); renderHero();
       showToast("✅ تنظیمات با موفقیت اعمال و ذخیره شد.", 'success');
