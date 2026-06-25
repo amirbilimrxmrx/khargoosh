@@ -3,581 +3,1053 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CineTrack Ultimate - Liquid Glass Edition</title>
+  <title>CineTrack</title>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     /* ============================================================
-       DESIGN TOKENS - LIQUID GLASS & MODERN BRIGHTER THEME
+       DESIGN TOKENS
     ============================================================ */
     :root {
-      /* Base Colors */
-      --bg-base:        #0f111a;
-      --text-primary:   #ffffff;
-      --text-secondary: #94a3b8;
-      --text-muted:     #64748b;
-      
-      /* Liquid Glass Tokens (Adjusted for lower clarity/more frost) */
-      --glass-bg:       rgba(255, 255, 255, 0.08);
-      --glass-bg-hover: rgba(255, 255, 255, 0.12);
-      --glass-border:   rgba(255, 255, 255, 0.15);
-      --glass-border-hl:rgba(255, 255, 255, 0.25);
-      --glass-shadow:   0 8px 32px 0 rgba(0, 0, 0, 0.4);
-      --glass-blur:     blur(32px) saturate(180%);
-      
-      /* Accents */
-      --accent:         #FF2E63;
-      --accent-glow:    rgba(255, 46, 99, 0.4);
-      --accent-hover:   #E01A4F;
-      --cyan:           #00E5FF;
-      --cyan-dim:       rgba(0, 229, 255, 0.15);
-      --green:          #00E676;
-      --blue:           #2979FF;
-      --purple:         #D500F9;
-      --amber:          #FFC400;
-      
-      /* Radii */
-      --radius-lg:      24px;
-      --radius:         16px;
-      --radius-sm:      12px;
-      --radius-xs:      8px;
-      
-      --star-empty:     rgba(255,255,255,0.15);
-      --star-full:      #FFC400;
-      --ai-gradient:    linear-gradient(135deg, #7C3AED, #00E5FF);
+      --bg-primary:     #08091A;
+      --bg-secondary:   #0E1220;
+      --bg-tertiary:    #141B30;
+      --surface:        rgba(255,255,255,0.038);
+      --surface-hover:  rgba(255,255,255,0.07);
+      --border:         rgba(255,255,255,0.07);
+      --accent:         #E8405A;
+      --accent-glow:    rgba(232,64,90,0.35);
+      --accent-hover:   #CC3450;
+      --text-primary:   #EDF0FC;
+      --text-secondary: #7B84A8;
+      --text-muted:     #4E5474;
+      --glass:          rgba(255,255,255,0.08);
+      --glass-border:   rgba(255,255,255,0.22);
+      --glass-highlight: rgba(255,255,255,0.28);
+      --glass-specular:  rgba(255,255,255,0.18);
+      --shadow-sm:      0 2px 10px rgba(0,0,0,0.4);
+      --shadow:         0 6px 24px rgba(0,0,0,0.5);
+      --shadow-lg:      0 16px 48px rgba(0,0,0,0.7);
+      --header-bg:      rgba(8,9,26,0.88);
+      --gradient-hero:  linear-gradient(135deg, #1A1060 0%, #0A0E1E 100%);
+      --cyan:           #22D3EE;
+      --cyan-dim:       rgba(34,211,238,0.12);
+      --green:          #10B981;
+      --blue:           #60A5FA;
+      --purple:         #7C6AF7;
+      --amber:          #FBBF24;
+      --radius-lg:      20px;
+      --radius:         14px;
+      --radius-sm:      10px;
+      --radius-xs:      7px;
+      --star-empty:     #2E3451;
+      --star-full:      #FBBF24;
+      --ai-gradient:    linear-gradient(135deg, #5B5BD6, #7C3AED);
     }
 
-    /* Light Theme Overrides (Adjusted for lower clarity/more frost) */
+    /* Light theme */
     body.light-theme {
-      --bg-base:        #f0f4f8;
-      --text-primary:   #0f172a;
-      --text-secondary: #475569;
-      --text-muted:     #94a3b8;
-      
-      --glass-bg:       rgba(255, 255, 255, 0.65);
-      --glass-bg-hover: rgba(255, 255, 255, 0.85);
-      --glass-border:   rgba(255, 255, 255, 0.6);
-      --glass-border-hl:rgba(0, 0, 0, 0.15);
-      --glass-shadow:   0 8px 32px 0 rgba(31, 38, 135, 0.09);
-      
-      --star-empty:     #cbd5e1;
+      --bg-primary:     #F1F3FC;
+      --bg-secondary:   #FFFFFF;
+      --bg-tertiary:    #EBEDf8;
+      --surface:        rgba(0,0,0,0.028);
+      --surface-hover:  rgba(0,0,0,0.055);
+      --border:         rgba(0,0,0,0.07);
+      --text-primary:   #111230;
+      --text-secondary: #505580;
+      --text-muted:     #8890B0;
+      --glass:          rgba(255,255,255,0.62);
+      --glass-border:   rgba(255,255,255,0.85);
+      --glass-highlight: rgba(255,255,255,0.9);
+      --glass-specular:  rgba(255,255,255,0.75);
+      --shadow-sm:      0 2px 10px rgba(0,0,0,0.06);
+      --shadow:         0 6px 24px rgba(0,0,0,0.09);
+      --shadow-lg:      0 16px 48px rgba(0,0,0,0.14);
+      --header-bg:      rgba(241,243,252,0.9);
+      --gradient-hero:  linear-gradient(135deg, #E6E9FC, #EEF0FF);
+      --star-empty:     #D1D5DB;
+      --star-full:      #F59E0B;
     }
 
     /* ============================================================
-       AMBIENT BACKGROUND (COLORFUL BLOBS)
+       GLASS EFFECTS DISABLED
     ============================================================ */
+    body.no-glass header,
+    body.no-glass .search-wrapper,
+    body.no-glass .search-dropdown,
+    body.no-glass .ai-chat-panel,
+    body.no-glass .glass,
+    body.no-glass .modal-box {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+    body.no-glass header            { background: var(--bg-secondary) !important; }
+    body.no-glass .ai-chat-panel   { background: var(--bg-secondary) !important; }
+    body.no-glass .search-dropdown  { background: var(--bg-secondary) !important; }
+    body.no-glass .glass            { background: var(--bg-tertiary) !important; }
+    body.no-glass .modal-box        { background: var(--bg-secondary) !important; }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * { font-family: 'Vazirmatn', sans-serif; }
+
     body {
-      background-color: var(--bg-base);
+      background: var(--bg-primary);
       color: var(--text-primary);
       min-height: 100vh;
       padding-bottom: 100px;
-      margin: 0;
-      font-family: 'Vazirmatn', sans-serif;
-      overflow-x: hidden;
-      transition: background-color 0.4s ease, color 0.4s ease;
+      transition: background 0.3s ease, color 0.3s ease;
     }
-
-    .ambient-bg {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      z-index: -1; overflow: hidden; pointer-events: none;
-    }
-    .blob {
-      position: absolute; filter: blur(90px); opacity: 0.5;
-      border-radius: 50%; animation: float 20s infinite alternate ease-in-out;
-    }
-    body.light-theme .blob { opacity: 0.3; filter: blur(100px); }
-    
-    .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(124, 58, 237, 0.5); }
-    .blob-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: rgba(0, 229, 255, 0.4); animation-delay: -5s; }
-    .blob-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: rgba(255, 46, 99, 0.3); animation-delay: -10s; }
-
-    @keyframes float {
-      0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(5%, 10%) scale(1.1); }
-      100% { transform: translate(-5%, -5%) scale(0.9); }
-    }
-
-    /* ============================================================
-       LIQUID GLASS UTILITY CLASS
-    ============================================================ */
-    .liquid-glass {
-      background: var(--glass-bg);
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow);
-      border-radius: var(--radius);
-    }
-    
-    /* Toggle off glass effect */
-    body.no-glass .liquid-glass,
-    body.no-glass header,
-    body.no-glass .search-dropdown,
-    body.no-glass .ai-chat-panel,
-    body.no-glass .modal-box,
-    body.no-glass .movie-card {
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      background: var(--bg-base) !important;
-      border: 1px solid var(--glass-border-hl) !important;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     /* Transitions */
-    .btn, .movie-card, .icon-btn, .search-wrapper, .stat-card, .filter-btn { 
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    .btn, .btn-secondary, .btn-delete, .btn-stream, .btn-stream-next,
+    .filter-btn, .movie-card, .search-item, .voice-rec-btn, .load-more-btn,
+    .icon-btn, .search-view-btn, .toggle-slider { 
+      transition: background 0.2s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1),
+                  box-shadow 0.2s ease, opacity 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     }
+    .modal-backdrop { transition: opacity 0.25s ease; }
+    .progress-bar { transition: width 0.8s cubic-bezier(0.34,1.56,0.64,1); position: relative; overflow: hidden; }
+    .progress-bar::after {
+      content: "";
+      position: absolute; top: 0; left: -100%; right: 0; bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: progressShimmer 2.2s infinite;
+    }
+    @keyframes progressShimmer { 100% { left: 100%; } }
+
+    .glass {
+      background: var(--glass);
+      backdrop-filter: blur(48px) saturate(2.4) brightness(1.1) contrast(1.04);
+      -webkit-backdrop-filter: blur(48px) saturate(2.4) brightness(1.1) contrast(1.04);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      box-shadow:
+        inset 0 1.5px 0 0 var(--glass-highlight),
+        inset 0 -1px 0 0 rgba(255,255,255,0.04),
+        inset 1px 0 0 0 rgba(255,255,255,0.06),
+        0 8px 40px rgba(0,0,0,0.28),
+        0 1px 2px rgba(0,0,0,0.15);
+      position: relative;
+      isolation: isolate;
+    }
+    /* Liquid glass iridescent sheen overlay */
+    .glass::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg,
+        rgba(255,255,255,0.14) 0%,
+        rgba(255,255,255,0.04) 40%,
+        rgba(255,255,255,0.0)  60%,
+        rgba(200,210,255,0.06) 100%);
+      pointer-events: none; z-index: 0;
+    }
+    .glass > * { position: relative; z-index: 1; }
 
     /* ============================================================
-       HEADER (FLOATING ISLAND)
+       HEADER
     ============================================================ */
-    .header-wrapper {
-      position: sticky; top: 16px; z-index: 100;
-      padding: 0 24px; margin-bottom: 32px;
-    }
     header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 12px 24px; gap: 16px; flex-wrap: wrap;
-      border-radius: 100px; /* Pill shape */
+      background: rgba(8,9,26,0.55);
+      backdrop-filter: blur(56px) saturate(2.6) brightness(1.12) contrast(1.06);
+      -webkit-backdrop-filter: blur(56px) saturate(2.6) brightness(1.12) contrast(1.06);
+      border-bottom: 1px solid rgba(255,255,255,0.14);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.22),
+        0 4px 40px rgba(0,0,0,0.4),
+        0 1px 0 rgba(255,255,255,0.06);
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0; z-index: 100;
+      gap: 16px; flex-wrap: wrap;
+    }
+    body.light-theme header {
+      background: rgba(241,243,252,0.55);
+      border-bottom-color: rgba(255,255,255,0.8);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.95),
+        0 4px 40px rgba(0,0,0,0.08),
+        0 1px 0 rgba(255,255,255,0.6);
     }
 
-    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0; }
-    .brand-icon {
-      width: 40px; height: 40px; background: var(--ai-gradient);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 15px rgba(0, 229, 255, 0.4); color: white;
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; flex-shrink: 0;
     }
+    .brand-icon {
+      width: 34px; height: 34px;
+      background: var(--ai-gradient);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(91,91,214,0.4);
+    }
+    .brand-icon svg { width: 18px; height: 18px; color: white; }
     .brand-name {
-      font-size: 24px; font-weight: 900; letter-spacing: -0.5px;
-      background: linear-gradient(to right, var(--text-primary), var(--cyan));
+      font-size: 22px; font-weight: 900; letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #E8405A 0%, #FF7FA0 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     /* ============================================================
        SEARCH
     ============================================================ */
-    .search-container { position: relative; width: 40%; max-width: 500px; min-width: 260px; }
+    .search-container { position: relative; width: 40%; max-width: 500px; min-width: 240px; }
+
     .search-wrapper {
-      display: flex; align-items: center; padding: 4px 16px;
-      background: rgba(255, 255, 255, 0.08); border-radius: 100px;
-      border: 1px solid var(--glass-border);
+      display: flex; align-items: center;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      padding: 2px 14px;
+      backdrop-filter: blur(40px) saturate(2.2) brightness(1.1);
+      -webkit-backdrop-filter: blur(40px) saturate(2.2) brightness(1.1);
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.24),
+        inset 0 -1px 0 rgba(255,255,255,0.04),
+        0 4px 20px rgba(0,0,0,0.2);
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
-    body.light-theme .search-wrapper { background: rgba(0,0,0,0.08); }
     .search-wrapper:focus-within {
-      background: var(--glass-bg-hover); border-color: var(--cyan);
-      box-shadow: 0 0 0 4px var(--cyan-dim);
+      border-color: rgba(232,64,90,0.55);
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.24),
+        0 0 0 3px rgba(232,64,90,0.12),
+        0 4px 20px rgba(0,0,0,0.25);
+    }
+    body.light-theme .search-wrapper {
+      background: rgba(255,255,255,0.6);
+      border-color: rgba(255,255,255,0.85);
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.95),
+        0 4px 20px rgba(0,0,0,0.06);
     }
     .search-wrapper input {
       flex: 1; background: transparent; border: none; color: var(--text-primary);
-      padding: 12px 0; font-size: 14px; outline: none; font-weight: 500;
+      padding: 11px 0; font-size: 14px; outline: none;
     }
     .search-wrapper input::placeholder { color: var(--text-muted); }
-    .search-clear-btn { background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 14px; padding: 0 8px; }
-    .search-input-icon { color: var(--text-muted); margin-left: 8px; }
+    .search-clear-btn {
+      background: transparent; border: none; color: var(--text-muted); cursor: pointer;
+      font-size: 13px; padding: 0 4px; line-height: 1;
+      opacity: 0.7; transition: opacity 0.2s;
+    }
+    .search-clear-btn:hover { opacity: 1; }
+    .search-input-icon { color: var(--text-muted); margin-left: 4px; }
 
     .search-dropdown {
-      position: absolute; top: calc(100% + 12px); left: 0; right: 0;
-      max-height: 450px; overflow: hidden; z-index: 200; display: none;
-      flex-direction: column; padding: 0;
+      position: absolute; top: calc(100% + 8px); left: 0; right: 0;
+      background: rgba(8,9,26,0.65);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: var(--radius);
+      max-height: 420px; overflow: hidden;
+      z-index: 200;
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.22),
+        0 24px 64px rgba(0,0,0,0.6),
+        0 2px 8px rgba(0,0,0,0.3);
+      display: none;
+      backdrop-filter: blur(56px) saturate(2.6) brightness(1.12);
+      -webkit-backdrop-filter: blur(56px) saturate(2.6) brightness(1.12);
+      flex-direction: column;
+    }
+    body.light-theme .search-dropdown {
+      background: rgba(241,243,252,0.6);
+      border-color: rgba(255,255,255,0.9);
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.98),
+        0 24px 64px rgba(0,0,0,0.12);
     }
     .search-dropdown.visible { display: flex; }
 
+    /* Search view toggle bar */
     .search-view-bar {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 16px; border-bottom: 1px solid var(--glass-border); background: rgba(0,0,0,0.15);
+      padding: 10px 12px 8px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
     }
-    .search-count-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
-    .search-view-btns { display: flex; gap: 6px; }
+    .search-count-label { font-size: 11px; color: var(--text-muted); }
+    .search-view-btns { display: flex; gap: 4px; }
     .search-view-btn {
-      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
-      background: transparent; border: 1px solid var(--glass-border); border-radius: 8px;
-      color: var(--text-secondary); cursor: pointer; transition: 0.2s;
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: 1px solid var(--border);
+      border-radius: 6px; color: var(--text-secondary); cursor: pointer;
+      font-size: 13px;
     }
-    .search-view-btn.active { background: var(--cyan); color: #000; border-color: var(--cyan); }
-    
-    .search-results-body { overflow-y: auto; flex: 1; padding: 8px; }
-    .search-results-body::-webkit-scrollbar { width: 4px; }
-    .search-results-body::-webkit-scrollbar-thumb { background: var(--glass-border-hl); border-radius: 4px; }
+    .search-view-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+    .search-view-btn:hover:not(.active) { background: var(--surface-hover); color: var(--text-primary); }
 
+    /* Search results container (scrollable) */
+    .search-results-body { overflow-y: auto; flex: 1; }
+    .search-results-body::-webkit-scrollbar { width: 3px; }
+    .search-results-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* List view items */
     .search-item {
-      display: flex; gap: 14px; padding: 12px; border-radius: var(--radius-sm);
-      cursor: pointer; align-items: center; transition: 0.2s; margin-bottom: 4px;
+      display: flex; gap: 12px; padding: 10px 14px;
+      border-bottom: 1px solid var(--border); cursor: pointer; align-items: center;
     }
-    .search-item:hover { background: var(--glass-bg-hover); transform: translateX(-4px); }
-    .search-item img { width: 44px; height: 64px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-    .search-item .info h4 { font-size: 14px; margin-bottom: 4px; font-weight: 700; }
-    .search-item .info p { font-size: 12px; color: var(--text-secondary); }
-    .search-item .info .type-badge { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 2px 8px; border-radius: 6px; font-size: 10px; }
+    .search-item:hover { background: var(--surface-hover); }
+    .search-item img { width: 38px; height: 55px; object-fit: cover; border-radius: 6px; background: var(--bg-tertiary); flex-shrink: 0; }
+    .search-item .info h4 { font-size: 13px; margin-bottom: 3px; color: var(--text-primary); font-weight: 700; }
+    .search-item .info p { font-size: 11px; color: var(--text-secondary); }
+    .search-item .info .type-badge {
+      display: inline-block; margin-top: 3px;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-secondary); font-size: 10px; font-weight: 600;
+      padding: 2px 7px; border-radius: 4px;
+    }
 
-    .search-results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .search-grid-item { border-radius: var(--radius-sm); overflow: hidden; cursor: pointer; background: var(--glass-bg); border: 1px solid transparent; transition: 0.2s; }
-    .search-grid-item:hover { border-color: var(--cyan); transform: translateY(-3px); }
+    /* Grid view */
+    .search-results-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+    }
+    .search-grid-item {
+      display: flex; flex-direction: column; cursor: pointer;
+      background: var(--bg-secondary); transition: background 0.15s;
+    }
+    .search-grid-item:hover { background: var(--surface-hover); }
     .search-grid-poster { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
-    .search-grid-info { padding: 8px; text-align: center; }
-    .search-grid-info h4 { font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .search-grid-info p { font-size: 10px; color: var(--text-secondary); margin-top: 2px; }
-
-    .load-more-btn {
-      text-align: center; padding: 14px; cursor: pointer; font-weight: 700; font-size: 13px; color: var(--cyan);
-      border-top: 1px solid var(--glass-border); background: rgba(0,0,0,0.15); transition: 0.2s;
+    .search-grid-info { padding: 8px 9px; }
+    .search-grid-info h4 {
+      font-size: 11px; font-weight: 700; color: var(--text-primary);
+      overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+      line-height: 1.4; margin-bottom: 3px;
     }
-    .load-more-btn:hover { background: var(--glass-bg-hover); color: #fff; }
+    .search-grid-info p { font-size: 10px; color: var(--text-secondary); }
+
+    /* Load more */
+    .load-more-btn {
+      text-align: center; padding: 12px; background: var(--surface); margin: 0;
+      border-top: 1px solid var(--border); cursor: pointer; font-weight: 600;
+      font-size: 13px; color: var(--cyan); border-bottom-left-radius: var(--radius);
+      border-bottom-right-radius: var(--radius);
+    }
+    body.light-theme .load-more-btn { background: rgba(0,0,0,0.02); }
+    .load-more-btn:hover { background: var(--surface-hover); }
 
     /* ============================================================
-       NAV ACTIONS & BUTTONS
+       NAV ACTIONS
     ============================================================ */
-    .nav-actions { display: flex; gap: 10px; align-items: center; }
-    .icon-btn {
-      width: 44px; height: 44px; background: var(--glass-bg);
-      border: 1px solid var(--glass-border); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--text-primary); cursor: pointer; backdrop-filter: blur(10px);
-    }
-    .icon-btn:hover { background: var(--glass-bg-hover); border-color: var(--glass-border-hl); transform: scale(1.05); }
-    .icon-btn svg { width: 20px; height: 20px; }
+    .nav-actions { display: flex; gap: 8px; align-items: center; }
 
+    .icon-btn {
+      width: 38px; height: 38px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 10px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-secondary); position: relative;
+    }
+    .icon-btn:hover { background: var(--surface-hover); color: var(--text-primary); border-color: rgba(255,255,255,0.15); }
+    .icon-btn svg { width: 17px; height: 17px; }
+    body.light-theme .icon-btn { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.09); }
+    body.light-theme .icon-btn:hover { background: rgba(0,0,0,0.09); }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
     .btn {
       background: var(--accent); color: white; border: none;
-      padding: 10px 20px; border-radius: var(--radius-sm); cursor: pointer; font-weight: 700;
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px;
-      box-shadow: 0 4px 15px var(--accent-glow); position: relative; overflow: hidden;
+      padding: 9px 18px; border-radius: var(--radius-sm);
+      cursor: pointer; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 7px; font-size: 13px;
+      box-shadow: 0 4px 14px var(--accent-glow);
+      white-space: nowrap;
     }
-    .btn::before {
-      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s ease;
-    }
-    .btn:hover::before { left: 100%; }
     .btn:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 6px 20px var(--accent-glow); }
     
-    .btn-secondary { background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-primary); box-shadow: none; }
-    .btn-secondary:hover { background: var(--glass-bg-hover); border-color: var(--glass-border-hl); }
-    .btn-delete { background: #EF4444; box-shadow: 0 4px 15px rgba(239,68,68,0.3); }
+    .btn-secondary {
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-primary); box-shadow: none;
+    }
+    .btn-secondary:hover { background: var(--surface-hover); transform: translateY(-2px); border-color: rgba(255,255,255,0.14); }
+    body.light-theme .btn-secondary { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1); }
+    body.light-theme .btn-secondary:hover { background: rgba(0,0,0,0.09); }
+    
+    .btn-delete { background: #EF4444; color: white; box-shadow: 0 4px 12px rgba(239,68,68,0.3); }
     .btn-delete:hover { background: #DC2626; }
-    .btn-stream { background: var(--green) !important; color: #000 !important; box-shadow: 0 4px 15px rgba(0,230,118,0.3); }
-    .btn-stream-next { background: var(--blue) !important; color: white !important; box-shadow: 0 4px 15px rgba(41,121,255,0.3); }
+    .btn-stream { background: var(--green) !important; color: white !important; box-shadow: 0 4px 12px rgba(16,185,129,0.3); }
+    .btn-stream:hover { background: #059669 !important; transform: translateY(-2px); }
+    .btn-stream-next { background: var(--blue) !important; color: white !important; box-shadow: 0 4px 12px rgba(96,165,250,0.3); }
+    .btn-stream-next:hover { background: #2563EB !important; transform: translateY(-2px); }
 
     /* ============================================================
        SECTION TITLES
     ============================================================ */
     .section-title {
-      margin: 40px 32px 20px; font-size: 20px; font-weight: 900;
-      display: flex; align-items: center; gap: 12px; color: var(--text-primary);
+      margin: 30px 28px 14px;
+      font-size: 17px; font-weight: 800;
+      display: flex; align-items: center; gap: 8px;
+      color: var(--text-primary); letter-spacing: -0.2px;
     }
     .section-title::after {
       content: ''; flex: 1; height: 1px;
-      background: linear-gradient(90deg, var(--glass-border-hl), transparent);
+      background: linear-gradient(90deg, var(--border), transparent);
     }
 
     /* ============================================================
-       HERO SECTION
+       HERO
     ============================================================ */
-    .hero-section { margin: 0 24px; padding: 32px; display: flex; align-items: center; position: relative; overflow: hidden; }
-    .hero-empty { text-align: center; width: 100%; color: var(--text-muted); font-size: 18px; font-weight: 600; }
-    .hero-empty-icon { font-size: 50px; margin-bottom: 16px; opacity: 0.5; }
-    
-    .hero-content { display: flex; gap: 32px; width: 100%; align-items: flex-start; z-index: 1; }
+    .hero-section {
+      margin: 24px 28px;
+      background: var(--gradient-hero);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      border: 1px solid var(--glass-border);
+      min-height: 240px;
+      display: flex; align-items: center;
+      box-shadow: var(--shadow);
+    }
+    body.light-theme .hero-section {
+      background: linear-gradient(135deg, #E8ECFF, #EEF1FF);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-empty {
+      text-align: center; width: 100%; color: var(--text-secondary);
+      font-size: 16px; display: flex; flex-direction: column;
+      align-items: center; gap: 14px;
+    }
+    .hero-empty-icon { font-size: 42px; opacity: 0.6; }
+    .hero-content { display: flex; gap: 28px; width: 100%; align-items: flex-start; }
+
     .hero-poster {
-      width: 220px; height: 320px; object-fit: cover; border-radius: var(--radius);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid var(--glass-border); flex-shrink: 0;
+      width: 200px; height: 290px; object-fit: cover; border-radius: var(--radius);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.12);
+      flex-shrink: 0;
     }
+    body.light-theme .hero-poster { box-shadow: var(--shadow); border-color: rgba(0,0,0,0.08); }
+
     .hero-details { flex: 1; min-width: 0; }
-    .hero-title { font-size: 36px; font-weight: 900; margin-bottom: 16px; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-    body.light-theme .hero-title { text-shadow: none; }
-    
-    .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
-    .badge {
-      background: var(--glass-bg); padding: 6px 16px; border-radius: 100px;
-      font-size: 13px; font-weight: 700; border: 1px solid var(--glass-border); backdrop-filter: blur(10px);
+    .hero-title {
+      font-size: 30px; font-weight: 900; margin-bottom: 14px;
+      color: white; letter-spacing: -0.5px; line-height: 1.15;
     }
-    .badge-status { background: var(--cyan-dim); color: var(--cyan); border-color: rgba(0,229,255,0.3); }
+    body.light-theme .hero-title { color: #111230; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+
+    .badge {
+      background: rgba(255,255,255,0.09); padding: 4px 12px;
+      border-radius: 20px; font-size: 12px; font-weight: 600;
+      color: var(--text-secondary); border: 1px solid var(--glass-border);
+    }
+    body.light-theme .badge { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.09); color: #505580; }
+    .badge-status { background: rgba(232,64,90,0.14); color: var(--accent); border-color: rgba(232,64,90,0.25); }
 
     .hero-extended-info {
-      background: rgba(0,0,0,0.25); padding: 20px; border-radius: var(--radius-sm); margin-bottom: 24px;
-      border: 1px solid var(--glass-border); display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;
+      background: rgba(255,255,255,0.04); padding: 16px 20px;
+      border-radius: var(--radius-sm); margin-bottom: 20px;
+      border: 1px solid var(--glass-border);
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;
     }
-    body.light-theme .hero-extended-info { background: rgba(255,255,255,0.4); }
-    .extended-row { font-size: 14px; line-height: 1.6; color: var(--text-primary); }
-    .extended-row strong { color: var(--text-secondary); font-weight: 700; display: inline-block; min-width: 120px; }
-    .hero-plot { font-size: 15px; line-height: 2; color: var(--text-primary); margin-bottom: 28px; opacity: 0.9; }
+    body.light-theme .hero-extended-info { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.07); }
+    .extended-row { font-size: 13px; line-height: 1.6; color: var(--text-primary); }
+    .extended-row strong { color: var(--text-secondary); font-weight: 600; display: inline-block; min-width: 110px; }
+    .hero-plot { font-size: 14px; line-height: 1.9; color: #C8D0E8; margin-bottom: 24px; }
+    body.light-theme .hero-plot { color: #3A3D60; }
 
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--glass-border); }
+    .hero-actions {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      margin-top: 24px; border-top: 1px solid var(--glass-border);
+      padding-top: 20px;
+    }
 
-    /* Progress inside Hero */
+    /* Episode progress */
     .episode-progress-block {
-      background: var(--glass-bg); border: 1px solid var(--glass-border);
-      border-radius: var(--radius-sm); padding: 20px; margin-bottom: 24px; position: relative; overflow: hidden;
+      background: rgba(34,211,238,0.05); border: 1px solid rgba(34,211,238,0.14);
+      border-radius: var(--radius-sm); padding: 16px; margin-bottom: 20px;
     }
-    .episode-progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .episode-progress-title { font-size: 15px; font-weight: 800; color: var(--cyan); }
-    .progress-container { width: 100%; background: rgba(0,0,0,0.3); border-radius: 10px; height: 8px; overflow: hidden; }
-    body.light-theme .progress-container { background: rgba(0,0,0,0.08); }
-    .progress-bar { height: 100%; background: linear-gradient(90deg, var(--cyan), #84FFFF); border-radius: 10px; transition: width 0.8s cubic-bezier(0.34,1.56,0.64,1); }
+    .episode-progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .episode-progress-title { font-size: 14px; font-weight: 700; color: var(--cyan); }
+    .episode-progress-count { font-size: 13px; color: var(--text-secondary); font-weight: 600; }
+    .progress-container { width: 100%; background: rgba(255,255,255,0.08); border-radius: 8px; height: 6px; overflow: hidden; }
+    .progress-bar { height: 100%; background: linear-gradient(90deg, var(--cyan), #7EE8FA); width: 0%; border-radius: 8px; }
 
-    /* Review & Voice */
+    /* Audio review */
     .audio-review-block {
-      background: var(--glass-bg); border: 1px solid var(--glass-border);
-      border-radius: var(--radius-sm); padding: 20px; margin-top: 24px;
+      background: rgba(96,165,250,0.04); border: 1px solid rgba(96,165,250,0.12);
+      border-radius: var(--radius-sm); padding: 18px; margin-top: 20px; position: relative;
     }
-    .audio-controls { display: flex; justify-content: space-between; margin-bottom: 16px; align-items: center; }
+    .audio-review-block::before {
+      content: ''; position: absolute; top: 0; right: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--blue));
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    }
+    .audio-controls { display: flex; justify-content: space-between; margin-bottom: 12px; align-items: center; }
     .review-textarea {
-      width: 100%; min-height: 100px; resize: vertical; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border);
-      border-radius: var(--radius-sm); padding: 16px; font-size: 14px; line-height: 1.8; color: var(--text-primary); outline: none; transition: 0.3s;
-      font-family: inherit;
+      width: 100%; min-height: 90px; resize: vertical;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: var(--radius-sm); padding: 12px 14px;
+      font-size: 14px; line-height: 1.8; color: var(--text-primary);
+      outline: none; transition: border-color 0.2s;
     }
-    body.light-theme .review-textarea { background: rgba(255,255,255,0.5); }
-    .review-textarea:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px var(--cyan-dim); }
-    .voice-rec-btn {
-      background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 8px 18px; border-radius: 100px;
-      cursor: pointer; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; color: var(--text-primary);
-    }
-    .voice-rec-btn.recording { background: rgba(255,46,99,0.2); border-color: var(--accent); color: var(--accent); animation: pulse 1.5s infinite; }
-    @keyframes pulse { 0% { box-shadow: 0 0 0 0 var(--accent-glow); } 70% { box-shadow: 0 0 0 10px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
-
-    /* ============================================================
-       DASHBOARD & WATCH NEXT
-    ============================================================ */
-    .dashboard-stats { margin: 0 24px 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
-    .stat-card { padding: 24px; text-align: center; }
-    .stat-card:hover { transform: translateY(-5px); border-color: var(--glass-border-hl); }
-    .stat-card h3 { font-size: 32px; font-weight: 900; margin-bottom: 8px; background: linear-gradient(135deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    body.light-theme .stat-card h3 { background: linear-gradient(135deg, #0f172a, #475569); -webkit-background-clip: text; }
-    .stat-card p { font-size: 14px; color: var(--text-secondary); font-weight: 600; }
-
-    .watch-next-container { margin: 0 24px 32px; padding: 24px; cursor: pointer; transition: 0.3s; }
-    .watch-next-container:hover { border-color: var(--cyan); box-shadow: 0 8px 30px var(--cyan-dim); transform: scale(1.01); }
-
-    /* ============================================================
-       CONTROLS & MAIN GRID
-    ============================================================ */
-    .controls-bar { margin: 0 24px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-    .filters-group { display: flex; gap: 8px; flex-wrap: wrap; }
-    .filter-btn {
-      background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-secondary);
-      padding: 10px 18px; border-radius: 100px; cursor: pointer; font-size: 13px; font-weight: 700; backdrop-filter: blur(10px);
-    }
-    .filter-btn:hover { background: var(--glass-bg-hover); color: var(--text-primary); }
-    .filter-btn.active { background: var(--cyan); color: #000; border-color: var(--cyan); box-shadow: 0 4px 15px var(--cyan-dim); }
-
-    .form-control, .sort-select {
-      background: var(--glass-bg); color: var(--text-primary); border: 1px solid var(--glass-border);
-      padding: 12px 16px; border-radius: var(--radius-sm); outline: none; font-size: 14px; font-weight: 600; width: 100%;
-      backdrop-filter: blur(10px); transition: 0.3s; font-family: inherit;
-    }
-    .form-control:focus, .sort-select:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px var(--cyan-dim); }
-    .sort-select option { background: var(--bg-base); color: var(--text-primary); }
-
-    .main-grid { margin: 0 24px 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 24px; }
+    body.light-theme .review-textarea { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.1); }
+    .review-textarea:focus { border-color: var(--cyan); }
     
-    .movie-card { overflow: hidden; position: relative; cursor: pointer; display: flex; flex-direction: column; }
-    .movie-card:hover { transform: translateY(-8px); border-color: var(--glass-border-hl); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
-    .movie-card.selected { border-color: var(--cyan); box-shadow: 0 0 0 2px var(--cyan), 0 10px 30px var(--cyan-dim); }
+    .voice-rec-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-primary); padding: 7px 16px; border-radius: 20px;
+      cursor: pointer; font-size: 12px; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    body.light-theme .voice-rec-btn { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1); }
+    .voice-rec-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+    .voice-rec-btn.recording { background: rgba(245,158,11,0.15); border-color: #F59E0B; color: #F59E0B; animation: pulse-rec 1.2s infinite; }
+    @keyframes pulse-rec { 0%,100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.4); } 50% { box-shadow: 0 0 0 8px rgba(245,158,11,0); } }
 
+    /* Series continuation */
+    .series-continuation-block {
+      margin-top: 16px;
+      background: rgba(96,165,250,0.06);
+      border: 1px solid rgba(96,165,250,0.2);
+      border-radius: var(--radius-sm); padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    }
+    body.light-theme .series-continuation-block { background: rgba(96,165,250,0.05); }
+    .series-continuation-block > .cont-text { font-size: 13px; color: var(--text-secondary); }
+    .series-continuation-block > .cont-text strong { color: var(--blue); }
+
+    /* ============================================================
+       DASHBOARD
+    ============================================================ */
+    .dashboard-stats {
+      margin: 0 28px 28px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;
+    }
+    .stat-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 18px; text-align: center;
+      backdrop-filter: blur(12px); transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+    .stat-card h3 { font-size: 26px; font-weight: 800; color: var(--text-primary); margin-bottom: 5px; }
+    .stat-card p { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+
+    /* ============================================================
+       WATCH NEXT
+    ============================================================ */
+    .watch-next-container {
+      margin: 0 28px 28px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px; backdrop-filter: blur(12px);
+    }
+
+    /* ============================================================
+       CONTROLS BAR
+    ============================================================ */
+    .controls-bar { margin: 0 28px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+    .filters-group { display: flex; gap: 6px; flex-wrap: wrap; }
+    .filter-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-secondary); padding: 7px 14px; border-radius: 8px;
+      cursor: pointer; font-size: 12px; font-weight: 600;
+    }
+    body.light-theme .filter-btn { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.09); }
+    .filter-btn:hover { background: var(--surface-hover); color: var(--text-primary); }
+    body.light-theme .filter-btn:hover { background: rgba(0,0,0,0.07); }
+    .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 2px 10px var(--accent-glow); }
+
+    select.sort-select, select.form-control, input.form-control {
+      background: var(--surface); color: var(--text-primary); border: 1px solid var(--border);
+      padding: 9px 13px; border-radius: var(--radius-sm); outline: none;
+      font-size: 13px; font-weight: 500; width: 100%; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    select.sort-select:focus, select.form-control:focus, input.form-control:focus {
+      border-color: rgba(34,211,238,0.4); box-shadow: 0 0 0 3px rgba(34,211,238,0.07);
+    }
+    body.light-theme select.sort-select,
+    body.light-theme select.form-control,
+    body.light-theme input.form-control { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.09); }
+    select.sort-select option,
+    select.form-control option { background: var(--bg-secondary); color: var(--text-primary); }
+
+    /* ============================================================
+       MOVIE GRID & CARDS
+    ============================================================ */
+    .main-grid { margin: 0 28px; display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 20px; }
+
+    .movie-card {
+      background: var(--surface); border-radius: var(--radius-sm);
+      overflow: hidden; border: 1px solid var(--border);
+      position: relative; cursor: pointer;
+      backdrop-filter: blur(12px);
+    }
+    .movie-card:hover { transform: translateY(-5px) scale(1.015); box-shadow: 0 18px 40px rgba(0,0,0,0.5); border-color: rgba(255,255,255,0.14); }
+    body.light-theme .movie-card:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+    .movie-card.selected { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent), 0 8px 24px var(--accent-glow); }
+
+    /* Status accent line (right side in RTL = visual start) */
     .movie-card::after {
-      content: ''; position: absolute; top: 0; right: 0; width: 4px; height: 100%; opacity: 0; transition: 0.3s;
+      content: ''; position: absolute; top: 10%; bottom: 10%; right: 0;
+      width: 3px; border-radius: 2px; opacity: 0; transition: opacity 0.3s;
     }
     .movie-card.status-Watching::after  { background: var(--cyan); opacity: 1; }
     .movie-card.status-Completed::after { background: var(--green); opacity: 1; }
+    .movie-card.status-Planned::after   { background: var(--text-muted); opacity: 0.6; }
 
-    .card-poster-wrapper { position: relative; width: 100%; aspect-ratio: 2/3; background: rgba(0,0,0,0.3); }
+    .card-poster-wrapper { position: relative; width: 100%; height: 250px; background: var(--bg-tertiary); }
+    body.light-theme .card-poster-wrapper { background: #E2E8F0; }
     .card-poster-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    
+
     .card-overlay {
-      position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,17,26,0.95), transparent);
-      display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 8px;
-      opacity: 0; padding: 16px; transition: 0.3s;
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(to top, rgba(8,9,26,0.95) 0%, rgba(8,9,26,0.5) 60%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      align-items: center; gap: 6px; opacity: 0; padding: 14px;
+      transition: opacity 0.25s;
     }
     .movie-card:hover .card-overlay { opacity: 1; }
 
+    /* IMDb badge always visible */
     .card-imdb-badge {
-      position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
-      color: var(--amber); font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(255,196,0,0.4);
+      position: absolute; top: 8px; left: 8px;
+      background: rgba(0,0,0,0.75); backdrop-filter: blur(4px);
+      color: var(--amber); font-size: 11px; font-weight: 800;
+      padding: 3px 8px; border-radius: 5px;
+      border: 1px solid rgba(251,191,36,0.25);
+      display: flex; align-items: center; gap: 3px;
     }
 
-    .card-info { padding: 16px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-    .card-title { font-size: 15px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 8px; }
-    .card-meta-line { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; }
-    .card-progress { background: var(--cyan-dim); border-radius: 6px; padding: 4px 8px; font-size: 11px; color: var(--cyan); font-weight: 800; text-align: center; margin-top: auto; }
-    .card-stars { font-size: 14px; margin-top: 8px; }
+    .card-info { padding: 12px; }
+    .card-title { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 5px; color: var(--text-primary); }
+    .card-meta-line { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-secondary); margin-bottom: 5px; }
+    .card-progress { background: var(--cyan-dim); border-radius: 5px; padding: 3px 7px; font-size: 10px; color: var(--cyan); font-weight: 700; text-align: center; margin-top: 6px; }
+    .card-stars { font-size: 11px; margin-top: 4px; color: var(--text-secondary); }
+
+    /* ============================================================
+       AI GLOBAL PANEL
+    ============================================================ */
+    .ai-global-panel {
+      margin: 36px 28px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 24px; backdrop-filter: blur(12px);
+    }
+    .ai-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 20px; border-bottom: 1px solid var(--border);
+      padding-bottom: 18px; flex-wrap: wrap; gap: 14px;
+    }
+    .ai-header-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--ai-gradient);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 14px rgba(91,91,214,0.4);
+    }
+    .ai-header-icon svg { width: 22px; height: 22px; color: white; }
+    .ai-response {
+      background: rgba(255,255,255,0.02); padding: 20px;
+      border-radius: var(--radius-sm); min-height: 100px;
+      font-size: 14px; line-height: 2; white-space: pre-wrap;
+      color: #B8C0DC; border: 1px solid var(--border);
+    }
+    body.light-theme .ai-response { background: rgba(0,0,0,0.02); color: #3A3D60; border-color: rgba(0,0,0,0.07); }
+
+    /* ============================================================
+       BACKUP SECTION
+    ============================================================ */
+    .backup-section { margin: 28px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* ============================================================
+       QUALITY / ARCHIVE SECTIONS
+    ============================================================ */
+    .quality-section-wrapper { display: flex; flex-direction: column; gap: 16px; margin-top: 12px; }
+    .quality-block-title { font-size: 14px; font-weight: 800; padding-bottom: 6px; border-bottom: 2px solid var(--border); margin-bottom: 10px; }
+    .quality-block-title.softsub { color: var(--blue); border-bottom-color: rgba(96,165,250,0.35); }
+    .quality-block-title.dubbed  { color: var(--green); border-bottom-color: rgba(16,185,129,0.35); }
+
+    .movie-quality-line {
+      display: block; font-size: 13px; padding: 9px 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text-primary); text-decoration: none;
+      font-weight: 500; margin-bottom: 7px; transition: background 0.2s;
+    }
+    body.light-theme .movie-quality-line { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.09); }
+    .movie-quality-line:hover { background: var(--surface-hover); }
+    body.light-theme .movie-quality-line:hover { background: rgba(0,0,0,0.07); }
+
+    .series-season-container { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 9px; }
+    body.light-theme .series-season-container { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.07); }
+    .series-season-title { font-size: 13px; font-weight: 700; color: var(--text-secondary); margin-bottom: 7px; }
+    .series-qualities-row { font-size: 13px; font-weight: 600; line-height: 1.9; color: var(--text-primary); }
+    .series-qualities-row a { color: var(--cyan); text-decoration: none; }
+    .series-qualities-row a:hover { text-decoration: underline; }
+
+    .stage-indicator {
+      display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+      background: var(--cyan-dim); border: 1px solid rgba(34,211,238,0.15);
+      border-radius: var(--radius-sm); font-size: 13px; color: var(--cyan); font-weight: 600;
+    }
+    .stage-spinner {
+      width: 16px; height: 16px; border: 2px solid rgba(34,211,238,0.2);
+      border-top-color: var(--cyan); border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ============================================================
        MODALS
     ============================================================ */
     .modal-backdrop {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(12px);
-      z-index: 1000; display: flex; justify-content: center; align-items: center;
-      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.65); backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px); z-index: 300;
+      display: flex; justify-content: center; align-items: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
     }
     .modal-backdrop.active { opacity: 1; pointer-events: auto; }
-    
+
     .modal-box {
-      width: 90%; max-width: 600px; max-height: 85vh; overflow-y: auto; padding: 32px;
-      transform: translateY(20px) scale(0.95); transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      background: rgba(14,18,32,0.72);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-lg); width: 90%; max-width: 580px;
+      max-height: 87vh; overflow-y: auto;
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.28),
+        inset 0 -1px 0 rgba(255,255,255,0.04),
+        0 32px 80px rgba(0,0,0,0.7),
+        0 2px 8px rgba(0,0,0,0.3);
+      padding: 24px;
+      color: var(--text-primary);
+      backdrop-filter: blur(64px) saturate(2.8) brightness(1.14) contrast(1.04);
+      -webkit-backdrop-filter: blur(64px) saturate(2.8) brightness(1.14) contrast(1.04);
+      transform: translateY(16px) scale(0.97); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
     }
     .modal-backdrop.active .modal-box { transform: translateY(0) scale(1); }
-    .modal-box::-webkit-scrollbar { width: 6px; }
-    .modal-box::-webkit-scrollbar-thumb { background: var(--glass-border-hl); border-radius: 6px; }
+    body.light-theme .modal-box {
+      background: rgba(241,243,252,0.65);
+      border-color: rgba(255,255,255,0.92);
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.98),
+        0 32px 80px rgba(0,0,0,0.14);
+    }
+    .modal-box::-webkit-scrollbar { width: 4px; }
+    .modal-box::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--glass-border); padding-bottom: 16px; }
-    .modal-header h3 { font-size: 20px; font-weight: 900; }
-    
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; margin-bottom: 8px; font-size: 13px; color: var(--text-secondary); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-    .form-row { display: flex; gap: 16px; }
+    .modal-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 22px; border-bottom: 1px solid var(--border); padding-bottom: 14px;
+    }
+    .modal-header h3 { font-size: 17px; font-weight: 800; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; margin-bottom: 7px; font-size: 12px; color: var(--text-secondary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+    .form-row { display: flex; gap: 12px; }
     .form-row .form-group { flex: 1; }
 
-    .stars-rating { display: flex; gap: 8px; font-size: 28px; cursor: pointer; color: var(--star-empty); user-select: none; }
-    .stars-rating span.active { color: var(--star-full); text-shadow: 0 0 15px rgba(255,196,0,0.6); }
-    .stars-rating span:hover { transform: scale(1.2); }
-
-    /* Toggle Switch */
-    .setting-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--glass-border); }
-    .setting-row:last-of-type { border-bottom: none; }
-    .setting-row-info { flex: 1; padding-left: 20px; }
-    .setting-row-info .setting-label { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-    .setting-row-info .setting-hint { font-size: 12px; color: var(--text-secondary); }
-
-    .toggle-switch { position: relative; display: inline-block; width: 50px; height: 28px; flex-shrink: 0; }
-    .toggle-switch input { opacity: 0; width: 0; height: 0; }
-    .toggle-slider { position: absolute; cursor: pointer; inset: 0; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 30px; transition: 0.3s; }
-    body.light-theme .toggle-slider { background: rgba(0,0,0,0.15); }
-    .toggle-slider:before { content: ""; position: absolute; height: 20px; width: 20px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s cubic-bezier(0.34,1.56,0.64,1); }
-    .toggle-switch input:checked + .toggle-slider { background: var(--cyan); border-color: var(--cyan); }
-    .toggle-switch input:checked + .toggle-slider:before { transform: translateX(22px); }
+    .stars-rating { display: flex; gap: 5px; font-size: 24px; cursor: pointer; color: var(--star-empty); user-select: none; }
+    .stars-rating span.active { color: var(--star-full); text-shadow: 0 0 12px rgba(251,191,36,0.5); }
+    .stars-rating span:hover { transform: scale(1.15); }
 
     /* ============================================================
-       AI ASSISTANT & CHAT
+       SETTINGS – TOGGLE SWITCH
+    ============================================================ */
+    .setting-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+    }
+    .setting-row:last-of-type { border-bottom: none; }
+    .setting-row-info { flex: 1; padding-left: 16px; }
+    .setting-row-info .setting-label { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+    .setting-row-info .setting-hint { font-size: 11px; color: var(--text-secondary); }
+
+    .toggle-switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.1); border: 1px solid var(--border); border-radius: 24px;
+    }
+    body.light-theme .toggle-slider { background: rgba(0,0,0,0.1); }
+    .toggle-slider:before {
+      position: absolute; content: "";
+      height: 18px; width: 18px; left: 2px; bottom: 2px;
+      background: white; border-radius: 50%;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    }
+    .toggle-switch input:checked + .toggle-slider { background: var(--accent); border-color: var(--accent); }
+    .toggle-switch input:checked + .toggle-slider:before { transform: translateX(20px); }
+
+    /* Settings section divider */
+    .settings-section { margin: 18px 0 10px; }
+    .settings-section-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--text-muted);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .settings-section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ============================================================
+       TOAST
+    ============================================================ */
+    .toast {
+      position: fixed; bottom: 88px; left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: rgba(14,18,32,0.97); border: 1px solid var(--border);
+      color: var(--text-primary); padding: 11px 24px;
+      border-radius: 12px; font-size: 13px; z-index: 2000;
+      opacity: 0; transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow: var(--shadow); backdrop-filter: blur(16px);
+      max-width: 380px; text-align: center; pointer-events: none; white-space: nowrap;
+    }
+    body.light-theme .toast { background: rgba(255,255,255,0.97); }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.toast-success { border-color: rgba(16,185,129,0.45); }
+    .toast.toast-error   { border-color: rgba(239,68,68,0.45); }
+    .toast.toast-info    { border-color: rgba(96,165,250,0.45); }
+
+    /* ============================================================
+       AI FLOAT BUTTON  (elegant pill design)
     ============================================================ */
     .ai-float-btn {
-      position: fixed; bottom: 32px; right: 32px; height: 56px; padding: 0 24px; border-radius: 100px;
-      background: var(--ai-gradient); border: none; cursor: pointer; display: flex; align-items: center; gap: 12px;
-      box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4); z-index: 900; transition: 0.3s;
+      position: fixed; bottom: 28px; right: 28px;
+      height: 50px; padding: 0 20px;
+      border-radius: 25px;
+      background: var(--ai-gradient);
+      border: none; cursor: pointer;
+      display: flex; align-items: center; gap: 9px;
+      box-shadow: 0 8px 28px rgba(91,91,214,0.45);
+      z-index: 900;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s, background 0.3s;
     }
-    .ai-float-btn:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(124, 58, 237, 0.6); }
-    .ai-float-btn-icon { width: 24px; height: 24px; color: white; }
-    .ai-float-btn-label { font-size: 15px; font-weight: 800; color: white; }
+    .ai-float-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 14px 36px rgba(91,91,214,0.55); }
+    .ai-float-btn.open { background: linear-gradient(135deg, #3B3B9E, #5B21B6); }
 
+    .ai-float-btn-icon { width: 22px; height: 22px; color: white; flex-shrink: 0; }
+    .ai-float-btn-label { font-size: 13px; font-weight: 700; color: white; letter-spacing: 0.01em; }
+
+    /* ============================================================
+       AI CHAT PANEL
+    ============================================================ */
     .ai-chat-panel {
-      position: fixed; bottom: 100px; right: 32px; width: 400px; height: 600px;
-      z-index: 899; display: flex; flex-direction: column; overflow: hidden;
-      transform: translateY(30px) scale(0.95); opacity: 0; pointer-events: none; transition: 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      position: fixed; bottom: 96px; right: 28px; width: 370px; height: 520px;
+      background: rgba(14,18,32,0.68);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: var(--radius-lg); z-index: 899;
+      display: flex; flex-direction: column;
+      backdrop-filter: blur(56px) saturate(2.4) brightness(1.1);
+      -webkit-backdrop-filter: blur(56px) saturate(2.4) brightness(1.1);
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.24),
+        inset 0 -1px 0 rgba(255,255,255,0.04),
+        0 32px 80px rgba(0,0,0,0.65),
+        0 2px 8px rgba(0,0,0,0.3);
+      transform: translateY(24px) scale(0.96); opacity: 0; pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s ease;
+      overflow: hidden;
+    }
+    body.light-theme .ai-chat-panel {
+      background: rgba(241,243,252,0.62);
+      border-color: rgba(255,255,255,0.9);
+      box-shadow:
+        inset 0 1.5px 0 rgba(255,255,255,0.98),
+        0 32px 80px rgba(0,0,0,0.12);
     }
     .ai-chat-panel.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
 
-    .ai-chat-header { padding: 16px 20px; background: rgba(0,0,0,0.25); border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; }
-    body.light-theme .ai-chat-header { background: rgba(255,255,255,0.3); }
-    .ai-chat-header-title { font-weight: 900; font-size: 15px; }
-    .ai-chat-header-status { font-size: 12px; color: var(--green); margin-top: 2px; }
-    
-    .ai-chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
-    .ai-bubble { max-width: 85%; animation: bubble-pop 0.3s cubic-bezier(0.34,1.56,0.64,1); }
-    @keyframes bubble-pop { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    .ai-bubble.user { align-self: flex-start; }
-    .ai-bubble.bot { align-self: flex-end; }
-    
-    .ai-bubble-content { padding: 12px 16px; border-radius: 16px; font-size: 14px; line-height: 1.8; }
-    .ai-bubble.user .ai-bubble-content { background: var(--ai-gradient); color: white; border-radius: 16px 4px 16px 16px; box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3); }
-    .ai-bubble.bot .ai-bubble-content { background: var(--glass-bg-hover); border: 1px solid var(--glass-border); border-radius: 4px 16px 16px 16px; backdrop-filter: blur(10px); }
-
-    .ai-chat-input-row { padding: 12px 16px; border-top: 1px solid var(--glass-border); display: flex; gap: 10px; background: rgba(0,0,0,0.25); }
-    body.light-theme .ai-chat-input-row { background: rgba(255,255,255,0.3); }
-    .ai-chat-input { flex: 1; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 100px; padding: 12px 20px; color: var(--text-primary); font-size: 14px; outline: none; font-family: inherit; }
-    .ai-chat-send { width: 44px; height: 44px; border-radius: 50%; background: var(--ai-gradient); border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4); }
-
-    /* Quality Links extracted from archive */
-    .quality-block-title { font-size: 15px; font-weight: 800; padding-bottom: 8px; border-bottom: 2px solid var(--glass-border); margin-bottom: 12px; margin-top: 16px; }
-    .quality-block-title.softsub { color: var(--cyan); }
-    .quality-block-title.dubbed { color: var(--green); }
-    .movie-quality-line { display: block; font-size: 14px; padding: 12px 16px; background: rgba(0,0,0,0.25); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); color: var(--text-primary); text-decoration: none; font-weight: 600; margin-bottom: 8px; transition: 0.2s; }
-    body.light-theme .movie-quality-line { background: rgba(255,255,255,0.5); }
-    .movie-quality-line:hover { background: var(--glass-bg-hover); border-color: var(--cyan); transform: translateX(-4px); }
-
-    /* Toast */
-    .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: rgba(15,17,26,0.95); border: 1px solid var(--glass-border); color: white; padding: 12px 24px; border-radius: 100px; font-size: 14px; font-weight: 700; z-index: 2000; opacity: 0; transition: 0.4s cubic-bezier(0.34,1.56,0.64,1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-    .toast-success { border-color: var(--green); box-shadow: 0 4px 20px rgba(0,230,118,0.3); }
-
-    @media (max-width: 768px) {
-      .header-wrapper { padding: 0 12px; margin-bottom: 16px; }
-      header { flex-direction: column; border-radius: var(--radius); padding: 16px; }
-      .search-container { width: 100%; max-width: 100%; }
-      .hero-content { flex-direction: column; align-items: center; text-align: center; }
-      .hero-meta { justify-content: center; }
-      .hero-extended-info { text-align: right; }
-      .main-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); margin: 0 16px 40px; }
-      .ai-chat-panel { width: calc(100vw - 32px); right: 16px; bottom: 96px; height: 75vh; }
+    .ai-chat-header {
+      padding: 14px 16px;
+      background: linear-gradient(135deg, rgba(91,91,214,0.16), rgba(124,58,237,0.1));
+      border-bottom: 1px solid rgba(91,91,214,0.18);
+      display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;
     }
+    body.light-theme .ai-chat-header { background: linear-gradient(135deg, rgba(91,91,214,0.08), rgba(124,58,237,0.04)); border-bottom-color: rgba(91,91,214,0.12); }
+    .ai-chat-header-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--ai-gradient); display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 10px rgba(91,91,214,0.4); flex-shrink: 0; }
+    .ai-chat-header-icon svg { width: 16px; height: 16px; color: white; }
+    .ai-chat-header-title { font-weight: 800; font-size: 13px; color: var(--text-primary); }
+    .ai-chat-header-status { font-size: 11px; color: var(--green); margin-top: 1px; }
+    .ai-chat-header-status.busy { color: #F59E0B; }
+    .ai-chat-header-actions { display: flex; gap: 4px; }
+    .ai-hdr-btn { background: transparent; border: none; color: var(--text-secondary); cursor: pointer; font-size: 14px; padding: 5px 6px; border-radius: 6px; transition: color 0.15s, background 0.15s; }
+    .ai-hdr-btn:hover { color: var(--text-primary); background: var(--surface-hover); }
+
+    .ai-chat-messages { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 9px; scroll-behavior: smooth; }
+    .ai-chat-messages::-webkit-scrollbar { width: 3px; }
+    .ai-chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    .ai-bubble { max-width: 88%; animation: bubble-pop 0.2s ease; }
+    @keyframes bubble-pop { from { transform: translateY(6px) scale(0.97); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+    .ai-bubble.user  { align-self: flex-start; }
+    .ai-bubble.bot   { align-self: flex-end; }
+    .ai-bubble.action { align-self: stretch; max-width: 100%; }
+
+    .ai-bubble-content { padding: 10px 13px; border-radius: 14px; font-size: 13px; line-height: 1.75; }
+    .ai-bubble.user .ai-bubble-content {
+      background: linear-gradient(135deg, rgba(91,91,214,0.28), rgba(124,58,237,0.16));
+      border: 1px solid rgba(91,91,214,0.32); border-radius: 14px 4px 14px 14px; color: var(--text-primary);
+    }
+    .ai-bubble.bot .ai-bubble-content {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 4px 14px 14px 14px; color: #C8D0EC;
+    }
+    body.light-theme .ai-bubble.bot .ai-bubble-content { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.09); color: #3A3D60; }
+    .ai-bubble.action .ai-bubble-content { background: rgba(34,211,238,0.05); border: 1px solid rgba(34,211,238,0.18); border-radius: 10px; }
+
+    .ai-typing-dots { display: inline-flex; gap: 4px; align-items: center; padding: 4px 2px; }
+    .ai-typing-dots span { width: 6px; height: 6px; background: rgba(91,91,214,0.6); border-radius: 50%; animation: dot-bounce 1.3s ease infinite; }
+    .ai-typing-dots span:nth-child(2) { animation-delay: 0.18s; }
+    .ai-typing-dots span:nth-child(3) { animation-delay: 0.36s; }
+    @keyframes dot-bounce { 0%,60%,100% { transform: translateY(0); opacity: 0.5; } 30% { transform: translateY(-5px); opacity: 1; } }
+
+    .ai-quick-btns { display: flex; gap: 4px; padding: 8px 10px 0; flex-wrap: wrap; flex-shrink: 0; }
+    .ai-quick-btns button {
+      background: rgba(91,91,214,0.1); border: 1px solid rgba(91,91,214,0.22);
+      color: #A5A8FA; padding: 4px 10px; border-radius: 18px; font-size: 11px;
+      cursor: pointer; white-space: nowrap; transition: background 0.15s;
+    }
+    .ai-quick-btns button:hover { background: rgba(91,91,214,0.2); }
+
+    .ai-chat-input-row {
+      padding: 9px 10px; border-top: 1px solid var(--border);
+      display: flex; gap: 7px; align-items: center; flex-shrink: 0;
+      background: rgba(0,0,0,0.15);
+    }
+    body.light-theme .ai-chat-input-row { background: rgba(0,0,0,0.025); }
+    .ai-chat-input {
+      flex: 1; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 9px 13px; color: var(--text-primary);
+      font-size: 13px; outline: none; font-family: 'Vazirmatn', sans-serif;
+      transition: border-color 0.2s;
+    }
+    body.light-theme .ai-chat-input { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1); }
+    .ai-chat-input:focus { border-color: rgba(91,91,214,0.45); }
+    .ai-chat-input::placeholder { color: var(--text-muted); }
+    .ai-chat-send {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--ai-gradient); border: none; color: white;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 15px; flex-shrink: 0; box-shadow: 0 4px 12px rgba(91,91,214,0.4);
+      transition: transform 0.15s;
+    }
+    .ai-chat-send:hover { transform: scale(1.08); }
+    .ai-chat-send:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    .ai-search-result-row {
+      display: flex; align-items: center; gap: 9px; padding: 8px; background: var(--surface);
+      border-radius: 8px; margin-bottom: 6px; border: 1px solid var(--border);
+    }
+    body.light-theme .ai-search-result-row { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.07); }
+    .ai-search-result-row img { width: 32px; height: 47px; object-fit: cover; border-radius: 4px; flex-shrink: 0; }
+    .ai-search-result-info { flex: 1; min-width: 0; }
+    .ai-search-result-info h5 { font-size: 11px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ai-search-result-info p { font-size: 10px; color: var(--text-secondary); }
+
+    .ai-confirm-card { background: var(--surface); border: 1px solid var(--border); border-radius: 9px; padding: 11px; }
+    body.light-theme .ai-confirm-card { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.09); }
+    .ai-confirm-card p { font-size: 13px; margin-bottom: 9px; }
+    .ai-confirm-btns { display: flex; gap: 7px; }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 768px) {
+      header { padding: 12px 16px; justify-content: center; }
+      .hero-content { flex-direction: column; align-items: center; }
+      .controls-bar { flex-direction: column; align-items: stretch; }
+      .search-container { width: 100%; max-width: 100%; }
+      .hero-section { margin: 16px; padding: 20px; }
+      .main-grid { margin: 0 16px; gap: 14px; }
+      .dashboard-stats { margin: 0 16px 24px; }
+      .section-title { margin: 24px 16px 12px; }
+      .controls-bar { margin: 0 16px 16px; }
+      .backup-section { margin: 16px; }
+      .ai-global-panel { margin: 24px 16px; }
+      .watch-next-container { margin: 0 16px 24px; }
+      .ai-chat-panel { width: calc(100vw - 24px); right: 12px; bottom: 88px; }
+      .hero-poster { width: 160px; height: 232px; }
+      .hero-title { font-size: 24px; }
+    }
+
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
   </style>
 </head>
-<body class="liquid-glass-theme">
+<body>
 
-  <div class="ambient-bg">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-  </div>
+  <!-- ============================================================
+       HEADER
+  ============================================================ -->
+  <header>
+    <a class="brand" href="#">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="5" width="20" height="14" rx="2"/>
+          <path d="M8 5V2M16 5V2M2 9h20"/>
+          <circle cx="12" cy="14" r="2.5"/>
+          <path d="M6 9v-.01M18 9v-.01"/>
+        </svg>
+      </div>
+      <span class="brand-name">CineTrack</span>
+    </a>
 
-  <div class="header-wrapper">
-    <header class="liquid-glass">
-      <a class="brand" href="#">
-        <div class="brand-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="5" width="20" height="14" rx="2"/>
-            <path d="M8 5V2M16 5V2M2 9h20"/><circle cx="12" cy="14" r="2.5"/><path d="M6 9v-.01M18 9v-.01"/>
-          </svg>
-        </div>
-        <span class="brand-name">CineTrack</span>
-      </a>
-
-      <div class="search-container">
-        <div class="search-wrapper">
-          <svg class="search-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-          </svg>
-          <input type="text" id="searchInput" placeholder="جستجوی فیلم یا سریال (انگلیسی)..." oninput="handleSearch(this.value)">
-          <button class="search-clear-btn" onclick="clearSearchInput()" title="پاک کردن">✕</button>
-        </div>
-        <div id="searchDropdown" class="search-dropdown liquid-glass">
-          <div class="search-view-bar" id="searchViewBar">
-            <span class="search-count-label" id="searchCountLabel">نتایج</span>
-            <div class="search-view-btns">
-              <button class="search-view-btn active" id="viewBtnList" onclick="setSearchView('list')" title="نمای لیست">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
-              </button>
-              <button class="search-view-btn" id="viewBtnGrid" onclick="setSearchView('grid')" title="نمای شبکه">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-              </button>
-            </div>
+    <div class="search-container">
+      <div class="search-wrapper">
+        <svg class="search-input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" id="searchInput" placeholder="جستجوی فیلم یا سریال..." oninput="handleSearch(this.value)">
+        <button class="search-clear-btn" onclick="clearSearchInput()" title="پاک کردن">✕</button>
+      </div>
+      <div id="searchDropdown" class="search-dropdown">
+        <div class="search-view-bar" id="searchViewBar">
+          <span class="search-count-label" id="searchCountLabel">نتایج</span>
+          <div class="search-view-btns">
+            <button class="search-view-btn active" id="viewBtnList" onclick="setSearchView('list')" title="نمای لیست">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+            </button>
+            <button class="search-view-btn" id="viewBtnGrid" onclick="setSearchView('grid')" title="نمای شبکه">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </button>
           </div>
-          <div class="search-results-body" id="searchResultsBody"></div>
         </div>
+        <div class="search-results-body" id="searchResultsBody"></div>
       </div>
+    </div>
 
-      <div class="nav-actions">
-        <button class="icon-btn" onclick="quickToggleTheme()" title="تغییر پوسته">
-          <svg id="themeIconDark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>
-          <svg id="themeIconLight" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-        </button>
-        <button class="icon-btn" onclick="openNotesModal()" title="یادداشت‌ها">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        </button>
-        <button class="icon-btn" onclick="openSettingsModal()" title="تنظیمات">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-        </button>
-      </div>
-    </header>
-  </div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeToggleBtn" onclick="quickToggleTheme()" title="تغییر پوسته">
+        <svg id="themeIconDark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/>
+        </svg>
+        <svg id="themeIconLight" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+        </svg>
+      </button>
+      <button class="icon-btn" onclick="openNotesModal()" title="یادداشت‌ها">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+        </svg>
+      </button>
+      <button class="icon-btn" onclick="openSettingsModal()" title="تنظیمات">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
 
+  <!-- ============================================================
+       WATCH NEXT
+  ============================================================ -->
   <div class="section-title">🎯 پیشنهاد تماشای بعدی</div>
-  <section class="watch-next-container liquid-glass" id="watchNextContainer">
-    <p style="color:var(--text-secondary); font-size:14px; text-align:center;">در حال ارزیابی...</p>
+  <section class="watch-next-container" id="watchNextContainer">
+    <p style="color:var(--text-secondary); font-size:14px;">در حال ارزیابی...</p>
   </section>
 
-  <section class="hero-section liquid-glass" id="heroSection"></section>
+  <!-- HERO -->
+  <section class="hero-section" id="heroSection"></section>
 
+  <!-- DASHBOARD -->
   <div class="section-title">📊 داشبورد کتابخانه</div>
   <section class="dashboard-stats" id="dashboardStats"></section>
 
+  <!-- CONTROLS BAR -->
   <section class="controls-bar">
     <div class="filters-group" id="filterContainer">
       <button class="filter-btn active" onclick="setFilter('status', 'all')">همه</button>
@@ -589,7 +1061,7 @@
       <button class="filter-btn" onclick="setFilter('special', 'highRated')">⭐ IMDb 8+</button>
       <button class="filter-btn" onclick="setFilter('special', 'personalTop')">🏆 محبوب‌های من</button>
     </div>
-    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+    <div style="display:flex; gap:8px; flex-wrap:wrap;">
       <select class="sort-select" id="genreFilterSelect" onchange="handleGenreChange(this.value)">
         <option value="all">همه ژانرها</option>
       </select>
@@ -603,182 +1075,224 @@
     </div>
   </section>
 
+  <!-- MAIN GRID -->
   <main class="main-grid" id="mainGrid"></main>
 
-  <section class="controls-bar" style="justify-content: flex-start;">
+  <!-- BACKUP SECTION -->
+  <section class="backup-section">
     <button class="btn btn-secondary" onclick="exportLibrary()">📤 خروجی بکاپ</button>
     <button class="btn btn-secondary" onclick="document.getElementById('importFileInput').click()">📥 بارگذاری بکاپ</button>
     <input type="file" id="importFileInput" style="display:none;" accept=".json" onchange="importLibrary(event)">
   </section>
 
-  <section class="liquid-glass" style="margin: 32px 24px; padding: 32px;">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; border-bottom:1px solid var(--glass-border); padding-bottom:16px; flex-wrap:wrap; gap:16px;">
-      <div style="display:flex; align-items:center; gap:16px;">
-        <div style="width:48px; height:48px; border-radius:16px; background:var(--ai-gradient); display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(0,229,255,0.4);">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:24px; height:24px; color:white;">
+  <!-- AI GLOBAL PANEL -->
+  <section class="ai-global-panel">
+    <div class="ai-header">
+      <div style="display:flex; align-items:center; gap:14px;">
+        <div class="ai-header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 2l2 6h6l-5 3.5 2 6-5-3.5-5 3.5 2-6L4 8h6z"/>
+            <circle cx="5" cy="19" r="1.5"/><circle cx="19" cy="5" r="1.5"/>
           </svg>
         </div>
         <div>
-          <h3 style="font-weight:900; font-size:18px;">تحلیل هوشمند کل آرشیو</h3>
-          <p style="font-size:13px; color:var(--text-secondary);">استخراج الگوها و پیشنهادهای شخصی بر اساس کل عناوین شما</p>
+          <h3 style="font-weight:800; font-size:15px; margin-bottom:3px;">تحلیل هوشمند کتابخانه</h3>
+          <p style="font-size:12px; color:var(--text-secondary);">تحلیل عادت‌های تماشا و پیشنهاد عناوین</p>
         </div>
       </div>
-      <div style="display:flex; gap:12px;">
-        <button class="btn btn-secondary" id="regenGlobalAiBtn" style="display:none;" onclick="generateGlobalAIAnalysis(true)">🔄 تحلیل مجدد</button>
-        <button class="btn" id="globalAiAnalyzeBtn" onclick="generateGlobalAIAnalysis(false)">✨ شروع آنالیز</button>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-secondary" id="regenGlobalAiBtn" style="display:none;" onclick="generateGlobalAIAnalysis(true)">🔄 بازتولید</button>
+        <button class="btn" id="globalAiAnalyzeBtn" onclick="generateGlobalAIAnalysis(false)">💡 آنالیز آرشیو</button>
       </div>
     </div>
-    <div id="globalAiResponse" style="font-size:15px; line-height:2; white-space:pre-wrap; color:var(--text-primary); padding:16px; background:rgba(0,0,0,0.15); border-radius:var(--radius-sm); border:1px solid var(--glass-border);">درخواست آنالیز را صادر کنید...</div>
+    <div class="ai-response" id="globalAiResponse">درخواست آنالیز کل آرشیو را صادر کنید...</div>
   </section>
 
+  <!-- ============================================================
+       MODALS
+  ============================================================ -->
+
+  <!-- Celebration -->
   <div class="modal-backdrop" id="celebrationModal">
-    <div class="modal-box liquid-glass" style="text-align:center; max-width:400px;">
-      <div style="font-size:64px; margin-bottom:16px; animation: bounce 2s infinite;">🎉</div>
-      <h3 style="font-size:28px; font-weight:900; color:var(--accent); margin-bottom:12px;">تبریک!</h3>
-      <p style="font-size:16px; margin-bottom:28px; line-height:1.7; color:var(--text-secondary);" id="celebrationText"></p>
-      <button class="btn" onclick="closeModal('celebrationModal')" style="width:100%;">بستن</button>
+    <div class="modal-box" style="text-align:center; max-width:400px;">
+      <div style="font-size:56px; margin-bottom:14px; animation: bounce 2s infinite;">🎉</div>
+      <h3 style="font-size:22px; font-weight:900; color:var(--accent); margin-bottom:10px;">تبریک!</h3>
+      <p style="font-size:15px; margin-bottom:22px; line-height:1.7; color:var(--text-secondary);" id="celebrationText">شما تماشای این سریال را به پایان رساندید!</p>
+      <button class="btn" onclick="closeModal('celebrationModal')" style="padding:12px 36px;">بستن</button>
     </div>
   </div>
 
+  <!-- Edit -->
   <div class="modal-backdrop" id="editModal">
-    <div class="modal-box liquid-glass">
+    <div class="modal-box">
       <div class="modal-header">
         <h3>✏️ ویرایش وضعیت و امتیاز</h3>
-        <button class="icon-btn" style="width:32px; height:32px;" onclick="closeModal('editModal')">✕</button>
+        <button class="btn btn-secondary" style="padding:5px 10px; font-size:12px;" onclick="closeModal('editModal')">✕</button>
       </div>
       <div id="editModalContent"></div>
     </div>
   </div>
 
+  <!-- Add -->
   <div class="modal-backdrop" id="addModal">
-    <div class="modal-box liquid-glass">
+    <div class="modal-box">
       <div class="modal-header">
         <h3>افزودن به آرشیو</h3>
-        <button class="icon-btn" style="width:32px; height:32px;" onclick="closeModal('addModal')">✕</button>
+        <button class="btn btn-secondary" style="padding:5px 10px; font-size:12px;" onclick="closeModal('addModal')">✕</button>
       </div>
       <div id="addModalContent"></div>
     </div>
   </div>
 
+  <!-- Progress -->
   <div class="modal-backdrop" id="progressModal">
-    <div class="modal-box liquid-glass">
+    <div class="modal-box">
       <div class="modal-header">
         <h3>⚙️ بروزرسانی قسمت‌ها</h3>
-        <button class="icon-btn" style="width:32px; height:32px;" onclick="closeModal('progressModal')">✕</button>
+        <button class="btn btn-secondary" style="padding:5px 10px; font-size:12px;" onclick="closeModal('progressModal')">✕</button>
       </div>
       <div id="progressModalContent"></div>
     </div>
   </div>
 
+  <!-- Notes -->
   <div class="modal-backdrop" id="notesModal">
-    <div class="modal-box liquid-glass">
+    <div class="modal-box">
       <div class="modal-header">
         <h3>📝 یادداشت‌های من</h3>
-        <button class="icon-btn" style="width:32px; height:32px;" onclick="closeModal('notesModal')">✕</button>
+        <button class="btn btn-secondary" style="padding:5px 10px; font-size:12px;" onclick="closeModal('notesModal')">✕</button>
       </div>
       <div class="form-group">
-        <textarea id="generalNotesTextArea" class="form-control review-textarea" style="min-height: 300px; font-size:15px;" placeholder="هر یادداشتی که دوست دارید اینجا بنویسید..." oninput="saveGeneralNotes(this.value)"></textarea>
+        <label>متن یادداشت:</label>
+        <textarea id="generalNotesTextArea" class="form-control review-textarea" style="min-height: 240px;" oninput="saveGeneralNotes(this.value)"></textarea>
       </div>
     </div>
   </div>
 
+  <!-- Settings -->
   <div class="modal-backdrop" id="settingsModal">
-    <div class="modal-box liquid-glass">
+    <div class="modal-box">
       <div class="modal-header">
-        <h3>⚙️ تنظیمات سیستم</h3>
-        <button class="icon-btn" style="width:32px; height:32px;" onclick="closeModal('settingsModal')">✕</button>
+        <h3>⚙️ تنظیمات</h3>
+        <button class="btn btn-secondary" style="padding:5px 10px; font-size:12px;" onclick="closeModal('settingsModal')">✕</button>
+      </div>
+
+      <!-- Appearance -->
+      <div class="settings-section">
+        <div class="settings-section-title">ظاهر</div>
       </div>
 
       <div class="form-group">
         <label>پوسته رابط کاربری:</label>
         <select id="themeSetting" class="form-control">
-          <option value="dark">🌙 تاریک (Dark Mode)</option>
-          <option value="light">☀️ روشن (Light Mode)</option>
+          <option value="dark">🌙 تاریک</option>
+          <option value="light">☀️ روشن</option>
         </select>
       </div>
 
-      <div class="form-group" style="margin-top: 24px;">
-        <div class="setting-row" style="background: rgba(0,0,0,0.15); border-radius: var(--radius-sm); border:1px solid var(--glass-border); padding: 12px 16px;">
+      <div class="form-group">
+        <label style="margin-bottom:0;">جلوه‌های بصری</label>
+        <div class="setting-row" style="border:none; padding-top:8px; padding-bottom:4px;">
           <label class="toggle-switch">
             <input type="checkbox" id="glassEffectsSetting" checked onchange="previewGlassToggle(this.checked)">
             <span class="toggle-slider"></span>
           </label>
           <div class="setting-row-info">
-            <div class="setting-label">جلوه‌های شیشه‌ای (Liquid Glass)</div>
-            <div class="setting-hint">فعال‌سازی تاری پس‌زمینه و المان‌های شفاف مدرن</div>
+            <div class="setting-label">جلوه‌های شیشه‌ای</div>
+            <div class="setting-hint">شفافیت و تاری پس‌زمینه در هدر و پنل‌ها</div>
           </div>
         </div>
       </div>
 
-      <div class="form-group" style="margin-top: 24px;">
-        <label>زبان نمایش (محتوای AI):</label>
+      <!-- Language -->
+      <div class="settings-section">
+        <div class="settings-section-title">زبان و محتوا</div>
+      </div>
+
+      <div class="form-group">
+        <label>زبان نمایش:</label>
         <select id="uiLanguageSetting" class="form-control">
-          <option value="en">English Plot</option>
-          <option value="fa">فارسی (ترجمه خودکار با AI)</option>
+          <option value="en">English</option>
+          <option value="fa">فارسی (ترجمه AI)</option>
         </select>
       </div>
 
-      <div class="form-group" style="margin-top: 24px;">
-        <label>فایل HTML آرشیو آفلاین:</label>
+      <!-- Archive -->
+      <div class="settings-section">
+        <div class="settings-section-title">آرشیو آفلاین</div>
+      </div>
+      <div class="form-group">
+        <label>فایل HTML آرشیو:</label>
         <input type="file" id="archiveHtmlFileInput" class="form-control" accept=".html,.htm" onchange="handleArchiveHtmlUpload(event)">
-        <div id="archiveUploadStatus" style="font-size:13px; font-weight:700; color:var(--amber); margin-top:8px;"></div>
+        <div id="archiveUploadStatus" style="font-size:12px; color:#FBBF24; margin-top:8px;"></div>
       </div>
 
-      <button class="btn" style="width:100%; margin-top:32px; font-size:16px; padding:14px;" onclick="saveSettings()">💾 ذخیره تنظیمات</button>
+      <button class="btn" style="width:100%; margin-top:14px;" onclick="saveSettings()">💾 ذخیره تنظیمات</button>
     </div>
   </div>
 
-  <button id="aiFloatBtn" class="ai-float-btn" onclick="toggleAIChat()" title="دستیار هوشمند">
-    <svg class="ai-float-btn-icon" id="aiIconSparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+  <!-- ============================================================
+       AI FLOAT BUTTON & CHAT PANEL
+  ============================================================ -->
+  <button id="aiFloatBtn" class="ai-float-btn" onclick="toggleAIChat()" title="دستیار هوشمند CineTrack">
+    <svg class="ai-float-btn-icon" id="aiIconSparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
       <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4-6.2-4.5L5.8 21.3l2.4-7.4L2 9.4h7.6z"/>
     </svg>
-    <svg class="ai-float-btn-icon" id="aiIconClose" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="display:none;">
+    <svg class="ai-float-btn-icon" id="aiIconClose" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none;">
       <path d="M18 6 6 18M6 6l12 12"/>
     </svg>
-    <span class="ai-float-btn-label" id="aiFloatLabel">دستیار AI</span>
+    <span class="ai-float-btn-label" id="aiFloatLabel">دستیار</span>
   </button>
 
-  <div id="aiChatPanel" class="ai-chat-panel liquid-glass">
+  <div id="aiChatPanel" class="ai-chat-panel">
     <div class="ai-chat-header">
-      <div style="display:flex; align-items:center; gap:12px;">
-        <div style="width:36px; height:36px; border-radius:10px; background:var(--ai-gradient); display:flex; align-items:center; justify-content:center; color:white; box-shadow:0 4px 15px rgba(124, 58, 237, 0.4);">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:20px; height:20px;"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4-6.2-4.5L5.8 21.3l2.4-7.4L2 9.4h7.6z"/></svg>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div class="ai-chat-header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4-6.2-4.5L5.8 21.3l2.4-7.4L2 9.4h7.6z"/>
+          </svg>
         </div>
         <div>
-          <div class="ai-chat-header-title">CineTrack AI</div>
-          <div class="ai-chat-header-status" id="aiStatusLabel">● آنلاین و آماده</div>
+          <div class="ai-chat-header-title">دستیار CineTrack</div>
+          <div class="ai-chat-header-status" id="aiStatusLabel">● آماده</div>
         </div>
       </div>
-      <div style="display:flex; gap:8px;">
-        <button class="icon-btn" style="width:32px; height:32px;" onclick="clearAIChat()" title="پاک کردن چت">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M19 6l-1 14H6L5 6M10 11v6M14 11v6M9 6V4h6v2"/></svg>
+      <div class="ai-chat-header-actions">
+        <button class="ai-hdr-btn" onclick="clearAIChat()" title="پاک کردن چت">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        </button>
+        <button class="ai-hdr-btn" onclick="toggleAIChat()" title="بستن">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </button>
       </div>
     </div>
-    
+
     <div id="aiChatMessages" class="ai-chat-messages"></div>
 
-    <div style="padding:12px; display:flex; gap:8px; overflow-x:auto; flex-shrink:0; background:rgba(0,0,0,0.15); border-top:1px solid var(--glass-border);">
-      <button class="btn btn-secondary" style="padding:6px 12px; font-size:12px; white-space:nowrap; border-radius:100px;" onclick="sendQuickAI('📚 خلاصه کتابخانه')">📚 خلاصه آرشیو</button>
-      <button class="btn btn-secondary" style="padding:6px 12px; font-size:12px; white-space:nowrap; border-radius:100px;" onclick="sendQuickAI('🎯 پیشنهاد بعدی')">🎯 پیشنهاد بعدی</button>
-      <button class="btn btn-secondary" style="padding:6px 12px; font-size:12px; white-space:nowrap; border-radius:100px;" onclick="sendQuickAI('📊 تحلیل آماری بده')">📊 تحلیل آماری</button>
+    <div class="ai-quick-btns" id="aiQuickBtns">
+      <button onclick="sendQuickAI('📚 محتویات کتابخانه‌ام رو خلاصه کن')">📚 کتابخانه</button>
+      <button onclick="sendQuickAI('بهترین عنوان بعدی برای تماشا چیه؟')">🎯 بعدی</button>
+      <button onclick="sendQuickAI('آمار و تحلیل کاملی از عادت‌های تماشای من بده')">📊 آمار</button>
+      <button onclick="sendQuickAI('پیشنهاد فیلم‌های مشابه کتابخانه‌ام بده')">💡 پیشنهاد</button>
     </div>
 
     <div class="ai-chat-input-row">
-      <input type="text" id="aiChatInput" class="ai-chat-input" placeholder="دستور بده یا بپرس..." onkeydown="if(event.key==='Enter'){sendAIChatMessage();}">
-      <button id="aiChatSendBtn" class="ai-chat-send" onclick="sendAIChatMessage()">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-      </button>
+      <input type="text" id="aiChatInput" class="ai-chat-input"
+             placeholder="بپرس یا دستور بده..."
+             onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAIChatMessage();}">
+      <button id="aiChatSendBtn" class="ai-chat-send" onclick="sendAIChatMessage()">↑</button>
     </div>
   </div>
 
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
   <script>
     // ==================== API CONFIGURATION ====================
     const OMDB_KEY    = "4b0254f3";
     const AI_API_BASE = "https://openrouter.ai/api/v1";
     const AI_API_KEY  = "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";
-    const DEFAULT_AI_MODEL = "llama-3.3-70b-versatile"; // Hardcoded specific API model
+    const AI_MODEL    = "google/gemma-4-31b-it:free";
     const BACKUP_ARCHIVE_URL = "https://www.my-f2m.top";
 
     // ==================== IndexedDB ====================
@@ -858,7 +1372,7 @@
       toast.innerHTML = message;
       document.body.appendChild(toast);
       requestAnimationFrame(() => toast.classList.add('show'));
-      setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, duration);
+      setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 350); }, duration);
     }
 
     function saveStateToStorage() {
@@ -869,26 +1383,26 @@
     // ==================== CONFETTI ====================
     function triggerConfetti() {
       const container = document.createElement('div');
-      Object.assign(container.style, { position:'fixed', inset:'0', pointerEvents:'none', zIndex:'9999', overflow:'hidden' });
+      Object.assign(container.style, { position:'fixed', top:'0', left:'0', width:'100vw', height:'100vh', pointerEvents:'none', zIndex:'9999', overflow:'hidden' });
       document.body.appendChild(container);
-      const colors = ['#FF2E63','#00E5FF','#00E676','#FFC400','#D500F9'];
-      for (let i = 0; i < 150; i++) {
+      const colors = ['#E8405A','#22D3EE','#10B981','#FBBF24','#60A5FA','#A855F7'];
+      for (let i = 0; i < 160; i++) {
         const conf = document.createElement('div');
         Object.assign(conf.style, {
-          position:'absolute', width:`${Math.random()*10+6}px`, height:`${Math.random()*10+6}px`,
+          position:'absolute', width:`${Math.random()*8+5}px`, height:`${Math.random()*8+5}px`,
           backgroundColor: colors[Math.floor(Math.random()*colors.length)],
           left:`${Math.random()*100}vw`, top:'-20px',
           borderRadius: Math.random() > 0.5 ? '50%' : '2px',
           transform:`rotate(${Math.random()*360}deg)`,
-          transition:`top ${Math.random()*2+2}s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform ${Math.random()*2+2}s ease, opacity 3s ease`
+          transition:`top ${Math.random()*2+2}s linear ${Math.random()*1.5}s, transform ${Math.random()*2+2}s ease-in-out ${Math.random()*1.5}s, opacity ${Math.random()*2+2}s ease-in ${Math.random()*1.5}s`
         });
         container.appendChild(conf);
         setTimeout(() => { conf.style.top='120vh'; conf.style.transform=`rotate(${Math.random()*720}deg) translateX(${Math.random()*100-50}px)`; conf.style.opacity='0'; }, 50);
       }
-      setTimeout(() => container.remove(), 4000);
+      setTimeout(() => container.remove(), 5000);
     }
 
-    // ==================== THEME & GLASS ====================
+    // ==================== THEME ====================
     function applyTheme(theme) {
       if (theme === 'light') {
         document.body.classList.add('light-theme');
@@ -903,6 +1417,7 @@
     function setTheme(theme) { state.theme = theme; localStorage.setItem("cinetrack_theme", theme); applyTheme(theme); }
     function quickToggleTheme() { setTheme(state.theme === 'dark' ? 'light' : 'dark'); }
 
+    // ==================== GLASS EFFECTS ====================
     function applyGlassEffects(enable) { document.body.classList.toggle('no-glass', !enable); }
     function previewGlassToggle(checked) { applyGlassEffects(checked); }
 
@@ -917,7 +1432,7 @@
       const res = await fetch(`${baseUrl}/chat/completions`, {
         method: "POST",
         headers: { "Content-Type":"application/json", "Authorization":`Bearer ${key}`, "HTTP-Referer":location.href, "X-Title":"CineTrack" },
-        body: JSON.stringify({ model: DEFAULT_AI_MODEL, messages, temperature, max_tokens:1500 })
+        body: JSON.stringify({ model:AI_MODEL, messages, temperature, max_tokens:1500 })
       });
       if (!res.ok) {
         let errMsg = `خطای HTTP ${res.status}`;
@@ -937,7 +1452,7 @@
       document.getElementById('viewBtnGrid').classList.toggle('active', mode === 'grid');
       if (currentSearchResults.length) {
         const hasMore = currentSearchResults.length < (parseInt(document.querySelector('.load-more-btn')?.dataset?.total || '0'));
-        renderSearchDropdown(currentSearchResults, hasMore, currentSearchPage, parseInt(document.querySelector('.load-more-btn')?.dataset?.total || '0'));
+        renderSearchDropdown(currentSearchResults, hasMore, currentSearchPage, 0);
       }
     }
 
@@ -989,13 +1504,13 @@
       clearTimeout(searchDebounceTimer);
       if (searchAbortController) searchAbortController.abort();
       const dropdown = document.getElementById("searchDropdown");
-      if (!query || query.trim().length < 2) {
+      if (!query || query.trim().length < 1) {
         dropdown.classList.remove('visible');
         currentSearchQuery = ""; currentSearchResults = []; currentSearchPage = 1;
         return;
       }
       dropdown.classList.add('visible');
-      document.getElementById('searchResultsBody').innerHTML = `<div style="padding:24px; text-align:center; color:var(--cyan); font-size:14px; font-weight:700;">⏳ در حال جستجو در OMDb...</div>`;
+      document.getElementById('searchResultsBody').innerHTML = `<div style="padding:18px; text-align:center; color:var(--text-secondary); font-size:13px;">🔍 در حال جستجو...</div>`;
       currentSearchQuery   = query.trim();
       currentSearchPage    = 1;
       currentSearchResults = [];
@@ -1005,17 +1520,24 @@
         const firstPage = await performSearch(currentSearchQuery, 1, signal);
         if (signal.aborted) return;
         currentSearchResults = firstPage.results;
-        const hasMore = firstPage.totalResults > 10;
-        renderSearchDropdown(currentSearchResults, hasMore, 1, firstPage.totalResults);
-        if (hasMore && currentSearchResults.length < 30) {
-          for (let p = 2; p <= 3; p++) {
+        const totalAvailable = firstPage.totalResults;
+        const maxAutoPages = Math.min(Math.ceil(totalAvailable / 10), 5); // auto-fetch up to 5 pages (50 results)
+        const hasMore = totalAvailable > currentSearchResults.length;
+        renderSearchDropdown(currentSearchResults, hasMore, 1, totalAvailable);
+        if (totalAvailable > 10) {
+          for (let p = 2; p <= maxAutoPages; p++) {
             if (signal.aborted) break;
             const next = await performSearch(currentSearchQuery, p, signal);
             if (signal.aborted) break;
             if (next.results.length) {
               const seen  = new Set(currentSearchResults.map(r => r.imdbID));
               const fresh = next.results.filter(r => !seen.has(r.imdbID));
-              if (fresh.length) { currentSearchResults.push(...fresh); currentSearchPage = p; renderSearchDropdown(currentSearchResults, p < 3 && next.results.length === 10, p, firstPage.totalResults); }
+              if (fresh.length) {
+                currentSearchResults.push(...fresh);
+                currentSearchPage = p;
+                const stillMore = totalAvailable > currentSearchResults.length;
+                renderSearchDropdown(currentSearchResults, stillMore, p, totalAvailable);
+              }
             } else break;
           }
         }
@@ -1026,17 +1548,17 @@
       const body       = document.getElementById('searchResultsBody');
       const countLabel = document.getElementById('searchCountLabel');
       if (!results.length) {
-        body.innerHTML = `<div style="padding:24px; font-size:14px; color:var(--text-secondary); text-align:center;">نتیجه‌ای یافت نشد.</div>`;
+        body.innerHTML = `<div style="padding:18px; font-size:13px; color:var(--text-secondary); text-align:center;">نتیجه‌ای یافت نشد.</div>`;
         if (countLabel) countLabel.textContent = '۰ نتیجه';
         return;
       }
-      if (countLabel) countLabel.textContent = `${results.length} از ${totalResults} نتیجه`;
+      if (countLabel) countLabel.textContent = `${results.length} نتیجه`;
 
       let html = '';
       if (searchViewMode === 'list') {
         html = results.map(item => `
           <div class="search-item" onclick="fetchItemFullDetails('${item.imdbID}')">
-            <img src="${item.Poster !== 'N/A' ? item.Poster : 'https://via.placeholder.com/44x64?text=No'}" alt="" loading="lazy">
+            <img src="${item.Poster !== 'N/A' ? item.Poster : 'https://via.placeholder.com/38x55?text=No'}" alt="" loading="lazy">
             <div class="info">
               <h4>${item.Title}</h4>
               <p>${item.Year}</p>
@@ -1055,7 +1577,8 @@
       }
 
       if (hasMore) {
-        html += `<div class="load-more-btn" data-total="${totalResults}" onclick="loadMoreSearchResults(event)">مشاهده بیشتر...</div>`;
+        const remaining = totalResults - results.length;
+        html += `<div class="load-more-btn" data-total="${totalResults}" onclick="loadMoreSearchResults(event)">بارگذاری ۳۰ مورد بیشتر (${results.length} از ${totalResults}) ...</div>`;
       }
       body.innerHTML = html;
     }
@@ -1064,15 +1587,23 @@
       if (event) event.stopPropagation();
       if (isLoadingMore) return;
       isLoadingMore = true;
-      const nextPage = currentSearchPage + 1;
-      const more = await performSearch(currentSearchQuery, nextPage);
-      if (more.results.length) {
+      // fetch the next 3 pages (30 more results) each time "load more" is clicked
+      const startPage = currentSearchPage + 1;
+      const endPage   = startPage + 2;
+      let totalResults = 0;
+      for (let p = startPage; p <= endPage; p++) {
+        const more = await performSearch(currentSearchQuery, p);
+        if (!more.results.length) break;
+        totalResults = more.totalResults;
         const seen  = new Set(currentSearchResults.map(r => r.imdbID));
         const fresh = more.results.filter(r => !seen.has(r.imdbID));
-        currentSearchResults.push(...fresh);
-        currentSearchPage = nextPage;
-        renderSearchDropdown(currentSearchResults, more.results.length === 10, currentSearchPage, more.totalResults);
+        if (fresh.length) {
+          currentSearchResults.push(...fresh);
+          currentSearchPage = p;
+        } else break;
       }
+      const stillMore = totalResults > currentSearchResults.length;
+      renderSearchDropdown(currentSearchResults, stillMore, currentSearchPage, totalResults);
       isLoadingMore = false;
     }
 
@@ -1094,7 +1625,6 @@
       let movieData = state.omdbCache[imdbID];
       if (!movieData) {
         try {
-          showToast("در حال دریافت اطلاعات کامل...", 'info');
           const res = await fetch(`https://www.omdbapi.com/?apikey=${OMDB_KEY}&i=${imdbID}&plot=full`);
           if (!res.ok) throw new Error("Network error");
           movieData = await res.json();
@@ -1116,14 +1646,14 @@
       const isSeries  = data.Type === "series";
       currentStarsVal = 0;
       container.innerHTML = `
-        <div style="display:flex; gap:20px; margin-bottom:24px; flex-wrap:wrap; align-items:flex-start;">
-          <img src="${data.Poster !== 'N/A' ? data.Poster : 'https://via.placeholder.com/120x175?text=No'}"
-               style="width:120px; height:175px; object-fit:cover; border-radius:var(--radius-sm); border:1px solid var(--glass-border); box-shadow:var(--glass-shadow);">
+        <div style="display:flex; gap:16px; margin-bottom:22px; flex-wrap:wrap; align-items:flex-start;">
+          <img src="${data.Poster !== 'N/A' ? data.Poster : 'https://via.placeholder.com/100x145?text=No'}"
+               style="width:100px; height:145px; object-fit:cover; border-radius:var(--radius-sm); border:1px solid var(--border);">
           <div style="flex:1; min-width:200px;">
-            <h3 style="margin-bottom:12px; font-weight:900; font-size:20px; line-height:1.3;">${data.Title}</h3>
-            <p style="font-size:14px; margin-bottom:8px; color:var(--text-secondary);">📅 ${data.Year} &nbsp;|&nbsp; ⭐ ${data.imdbRating}</p>
-            <p style="font-size:14px; color:var(--text-secondary);">🎭 ${data.Genre}</p>
-            ${isSeries && data.totalSeasons ? `<p style="font-size:14px; color:var(--cyan); margin-top:8px; font-weight:700;">📺 ${data.totalSeasons} فصل</p>` : ''}
+            <h3 style="margin-bottom:8px; font-weight:800; font-size:16px; line-height:1.3;">${data.Title}</h3>
+            <p style="font-size:13px; margin-bottom:5px; color:var(--text-secondary);">📅 ${data.Year} &nbsp;|&nbsp; ⭐ ${data.imdbRating}</p>
+            <p style="font-size:13px; color:var(--text-secondary);">🎭 ${data.Genre}</p>
+            ${isSeries && data.totalSeasons ? `<p style="font-size:13px; color:var(--blue); margin-top:5px;">📺 ${data.totalSeasons} فصل</p>` : ''}
           </div>
         </div>
         <input type="hidden" id="formImdbID" value="${data.imdbID}">
@@ -1140,7 +1670,7 @@
             <div class="form-group"><label>فصل کنونی:</label><input type="number" id="formSeason" class="form-control" value="1" min="1" onchange="fetchSeasonEpisodes('${data.imdbID}', this.value)"></div>
             <div class="form-group"><label>قسمت کنونی:</label><input type="number" id="formEpisode" class="form-control" value="1" min="1"></div>
           </div>
-          <div id="seasonEpisodesInfo" style="font-size:13px; font-weight:700; color:var(--cyan); margin-top:4px;"></div>
+          <div id="seasonEpisodesInfo" style="font-size:12px; color:var(--cyan); margin-top:4px;"></div>
         </div>
         <div class="form-group">
           <label>امتیاز شخصی:</label>
@@ -1151,7 +1681,7 @@
           </div>
           <input type="hidden" id="formUserRating" value="0">
         </div>
-        <button class="btn" style="width:100%; margin-top:20px; font-size:16px; padding:14px;" onclick="saveItemFromModal()">💾 افزودن به کتابخانه</button>`;
+        <button class="btn" style="width:100%; margin-top:12px;" onclick="saveItemFromModal()">💾 ذخیره در کتابخانه</button>`;
       backdrop.classList.add("active");
       if (isSeries) fetchSeasonEpisodes(data.imdbID, 1);
     }
@@ -1174,10 +1704,10 @@
       const item = state.items.find(i => i.id === id);
       if (!item) return;
       document.getElementById("editModalContent").innerHTML = `
-        <div style="display:flex; gap:16px; margin-bottom:24px; align-items:center; flex-wrap:wrap;">
-          <img src="${item.poster !== 'N/A' ? item.poster : 'https://via.placeholder.com/60x85?text=No'}"
-               style="width:60px; height:85px; object-fit:cover; border-radius:8px; border:1px solid var(--glass-border); box-shadow:var(--glass-shadow);">
-          <h3 style="font-weight:900; font-size:18px;">${item.title}</h3>
+        <div style="display:flex; gap:14px; margin-bottom:20px; align-items:center; flex-wrap:wrap;">
+          <img src="${item.poster !== 'N/A' ? item.poster : 'https://via.placeholder.com/55x78?text=No'}"
+               style="width:55px; height:78px; object-fit:cover; border-radius:6px; border:1px solid var(--border);">
+          <h3 style="font-weight:800; font-size:15px;">${item.title}</h3>
         </div>
         <input type="hidden" id="editId" value="${item.id}">
         <div class="form-group">
@@ -1194,9 +1724,9 @@
             ${[1,2,3,4,5].map(v => `<span onclick="setEditStars(${v})" class="${v <= item.userRating ? 'active' : ''}">★</span>`).join('')}
           </div>
           <input type="hidden" id="editUserRating" value="${item.userRating}">
-          <p style="font-size:12px; color:var(--text-muted); margin-top:8px;">برای حذف امتیاز، روی امتیاز فعلی دوباره کلیک کنید</p>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:5px;">برای حذف امتیاز، روی امتیاز فعلی دوباره کلیک کنید</p>
         </div>
-        <button class="btn" style="width:100%; margin-top:20px; font-size:16px; padding:14px;" onclick="saveEditDetails()">💾 ذخیره تغییرات</button>`;
+        <button class="btn" style="width:100%; margin-top:16px;" onclick="saveEditDetails()">💾 ذخیره تغییرات</button>`;
       document.getElementById("editModal").classList.add("active");
     }
 
@@ -1221,7 +1751,7 @@
         setTimeout(() => document.getElementById('celebrationModal').classList.add('active'), 500);
       }
       saveStateToStorage(); closeModal("editModal"); renderHero(); renderGrid(); renderDashboard(); renderWatchNext();
-      showToast(`✅ تغییرات ذخیره شد.`, 'success');
+      showToast(`✅ تغییرات «${item.title}» ذخیره شد.`, 'success');
     }
 
     async function saveItemFromModal() {
@@ -1231,8 +1761,7 @@
       const status     = document.getElementById("formStatus")?.value;
       const userRating = parseInt(document.getElementById("formUserRating")?.value) || 0;
       const rawCached  = state.omdbCache[imdbID];
-      if (!rawCached) { isSavingItem = false; showToast("⚠️ خطا در داده‌ها", 'error'); return; }
-      
+      if (!rawCached) { isSavingItem = false; showToast("⚠️ اطلاعات کش شده یافت نشد.", 'error'); return; }
       let season = 1, episode = 1;
       const isSeries = rawCached.Type === "series";
       if (isSeries && status !== "Completed") {
@@ -1258,21 +1787,22 @@
       if (status === "Completed") triggerConfetti();
       saveStateToStorage(); state.selectedId = imdbID;
       closeModal('addModal'); renderDashboard(); extractAndRenderGenres(); renderGrid(); renderHero(); renderWatchNext();
-      showToast(`✅ اضافه شد!`, 'success');
+      showToast(`✅ «${newItem.title}» به کتابخانه اضافه شد!`, 'success');
       isSavingItem = false;
     }
 
     function deleteItem(id) {
-      if (!confirm("مطمئنید می‌خواهید این عنوان را برای همیشه پاک کنید؟")) return;
+      if (!confirm("آیا مطمئن هستید که می‌خواهید این عنوان را حذف کنید؟")) return;
+      const item = state.items.find(i => i.id === id);
       state.items = state.items.filter(i => i.id !== id);
       if (state.selectedId === id) state.selectedId = null;
       saveStateToStorage(); renderDashboard(); renderGrid(); renderHero(); renderWatchNext();
-      showToast(`🗑️ عنوان حذف شد.`, 'info');
+      if (item) showToast(`🗑️ «${item.title}» حذف شد.`, 'info');
     }
 
     function renderStarsStatic(rating) {
       let h = "";
-      for (let i = 1; i <= 5; i++) h += `<span style="color:${i <= rating ? '#FFC400' : 'var(--star-empty)'}; margin-left:2px;">★</span>`;
+      for (let i = 1; i <= 5; i++) h += `<span style="color:${i <= rating ? '#FBBF24' : 'var(--star-empty)'}; margin-left:1px;">★</span>`;
       return h;
     }
 
@@ -1341,24 +1871,25 @@
       if (!container) return;
       const items = getFilteredAndSortedItems();
       if (!items.length) {
-        container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:60px; color:var(--text-secondary); font-size:16px;">هیچ عنوانی مطابق فیلتر یافت نشد.</div>`;
+        container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:60px; color:var(--text-secondary); font-size:14px;">هیچ عنوانی یافت نشد.</div>`;
         return;
       }
       container.innerHTML = items.map(item => {
         const isSelected = item.id === state.selectedId;
         const progress   = item.type === 'series' ? getProgressPercent(item) : 0;
-        return `<div class="movie-card liquid-glass ${isSelected ? 'selected' : ''} status-${item.status}" onclick="selectGridItem('${item.id}')">
+        return `<div class="movie-card ${isSelected ? 'selected' : ''} status-${item.status}" onclick="selectGridItem('${item.id}')">
           <div class="card-poster-wrapper">
-            <img src="${item.poster !== 'N/A' ? item.poster : 'https://via.placeholder.com/190x280?text=No'}" alt="" loading="lazy">
+            <img src="${item.poster !== 'N/A' ? item.poster : 'https://via.placeholder.com/170x250?text=No'}" alt="" loading="lazy">
             ${item.imdbRating && item.imdbRating !== 'N/A' ? `<div class="card-imdb-badge">⭐ ${item.imdbRating}</div>` : ''}
             <div class="card-overlay">
-              <button class="btn btn-secondary" style="padding:6px 14px; font-size:13px; width:100%; border-radius:100px;" onclick="event.stopPropagation(); openEditModal('${item.id}')">✏️ ویرایش</button>
+              <button class="btn btn-secondary" style="padding:5px 12px; font-size:12px;" onclick="event.stopPropagation(); openEditModal('${item.id}')">✏️ ویرایش</button>
+              <button class="btn btn-delete" style="padding:5px 12px; font-size:12px;" onclick="event.stopPropagation(); deleteItem('${item.id}')">🗑️ حذف</button>
             </div>
           </div>
           <div class="card-info">
             <h4 class="card-title" title="${item.title}">${item.title}</h4>
             <div class="card-meta-line"><span>${item.year || ''}</span><span>${translateType(item.type)}</span></div>
-            <div class="card-stars">${item.userRating > 0 ? renderStarsStatic(item.userRating) : '<span style="color:var(--text-muted); font-size:11px;">بدون امتیاز</span>'}</div>
+            <div class="card-stars">${item.userRating > 0 ? renderStarsStatic(item.userRating) : '<span style="color:var(--text-muted);">امتیاز ثبت نشده</span>'}</div>
             ${item.type === 'series' ? `<div class="card-progress">پیشرفت: ${progress}%</div>` : ''}
           </div>
         </div>`;
@@ -1367,7 +1898,7 @@
 
     function selectGridItem(id) {
       state.selectedId = id; renderGrid(); renderHero();
-      document.getElementById('heroSection')?.scrollIntoView({ behavior:'smooth', block:'center' });
+      document.getElementById('heroSection')?.scrollIntoView({ behavior:'smooth', block:'start' });
     }
 
     function getTopWatchNext() {
@@ -1382,18 +1913,18 @@
       const container = document.getElementById("watchNextContainer");
       if (!container) return;
       const top = getTopWatchNext();
-      if (!top) { container.innerHTML = `<p style="color:var(--text-secondary); font-size:15px; text-align:center;">شما هیچ عنوانی در لیست تماشا ندارید. 🍿</p>`; return; }
+      if (!top) { container.innerHTML = `<p style="color:var(--text-secondary); font-size:14px;">لیست تماشای شما خالی است.</p>`; return; }
       container.innerHTML = `
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;" onclick="selectGridItem('${top.id}')">
-          <div style="display:flex; align-items:center; gap:20px;">
-            <img src="${top.poster !== 'N/A' ? top.poster : 'https://via.placeholder.com/60x85?text=No'}"
-                 style="width:50px; height:75px; object-fit:cover; border-radius:var(--radius-sm); border:1px solid var(--glass-border); box-shadow:var(--glass-shadow);" loading="lazy">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; cursor:pointer;" onclick="selectGridItem('${top.id}')">
+          <div style="display:flex; align-items:center; gap:14px;">
+            <img src="${top.poster !== 'N/A' ? top.poster : 'https://via.placeholder.com/40x57?text=No'}"
+                 style="width:38px; height:55px; object-fit:cover; border-radius:7px; border:1px solid var(--border);" loading="lazy">
             <div>
-              <h4 style="font-weight:900; font-size:18px; margin-bottom:4px;">${top.title}</h4>
-              <p style="font-size:13px; color:var(--text-secondary); font-weight:700;">${translateStatus(top.status)} &nbsp;·&nbsp; ⭐ ${top.imdbRating}</p>
+              <h4 style="font-weight:700; font-size:15px;">${top.title}</h4>
+              <p style="font-size:12px; color:var(--text-secondary); margin-top:3px;">${translateStatus(top.status)} &nbsp;·&nbsp; ⭐ ${top.imdbRating}</p>
             </div>
           </div>
-          <button class="btn" style="border-radius:100px;">🎬 تمرکز و مشاهده</button>
+          <button class="btn btn-secondary" style="font-size:12px; padding:7px 14px;">🎯 تمرکز روی این عنوان</button>
         </div>`;
     }
 
@@ -1402,18 +1933,18 @@
       const file     = event.target.files[0];
       const statusEl = document.getElementById("archiveUploadStatus");
       if (!file) return;
-      statusEl.style.color = 'var(--amber)'; statusEl.textContent = "⏳ در حال پردازش فایل...";
+      statusEl.style.color = '#FBBF24'; statusEl.textContent = "⏳ در حال خواندن فایل...";
       const reader = new FileReader();
       reader.onload = async function(e) {
         const content = e.target.result;
         if (!content?.trim().length) { statusEl.style.color='#EF4444'; statusEl.textContent="❌ فایل خالی است."; return; }
         state.archiveHtmlSource = content;
-        statusEl.textContent = "⏳ در حال ذخیره سازی امن...";
+        statusEl.style.color = '#FBBF24'; statusEl.textContent = "⏳ در حال ذخیره‌سازی...";
         try {
           await saveArchiveToDB(content);
-          statusEl.style.color = 'var(--green)'; statusEl.textContent = `✅ آرشیو آماده استفاده شد (${Math.round(content.length/1024)} KB).`;
-          showToast("✅ فایل آرشیو با موفقیت بارگذاری شد!", 'success');
-        } catch (err) { statusEl.style.color='var(--amber)'; statusEl.textContent="⚠️ ذخیره دائم با خطا مواجه شد، اما موقتاً در دسترس است."; }
+          statusEl.style.color = '#10B981'; statusEl.textContent = `✅ آرشیو بارگذاری شد (${Math.round(content.length/1024)} KB).`;
+          showToast("✅ فایل آرشیو بارگذاری شد!", 'success');
+        } catch (err) { statusEl.style.color='#F59E0B'; statusEl.textContent="⚠️ خطا در ذخیره دائم، در حافظه موقت است."; }
       };
       reader.onerror = () => { statusEl.style.color='#EF4444'; statusEl.textContent="❌ خطا در خواندن فایل."; };
       reader.readAsText(file, 'UTF-8');
@@ -1458,34 +1989,31 @@
       const item       = state.items.find(i => i.id === imdbID);
       const resultsDiv = document.getElementById("archiveMatchResults");
       if (!resultsDiv) return;
-      if (!item) { resultsDiv.innerHTML = `<div style="background:rgba(239,68,68,0.1); border:1px solid #EF4444; padding:16px; border-radius:var(--radius-sm); color:#EF4444; font-weight:700;">⚠️ عنوان یافت نشد.</div>`; return; }
-      if (!state.archiveHtmlSource) { resultsDiv.innerHTML = `<div style="background:rgba(239,68,68,0.1); border:1px solid #EF4444; padding:16px; border-radius:var(--radius-sm); color:#EF4444; font-weight:700;">⚠️ فایل آرشیو آپلود نشده است! لطفاً به تنظیمات بروید.</div>`; return; }
-      
-      function stageMsg(n, msg) { resultsDiv.innerHTML = `<div style="padding:16px; background:var(--cyan-dim); border:1px solid var(--cyan); border-radius:var(--radius-sm); color:var(--cyan); font-weight:700; display:flex; align-items:center; gap:12px;"><div style="width:20px; height:20px; border:2px solid var(--cyan); border-top-color:transparent; border-radius:50%; animation:spin 1s linear infinite;"></div>مرحله ${n} از ۳ — ${msg}</div>`; }
-      
+      if (!item) { resultsDiv.innerHTML = `<div style="background:rgba(239,68,68,0.06); border:1px solid #F87171; padding:14px; border-radius:var(--radius-sm); font-size:13px; color:#EF4444;">⚠️ عنوان در کتابخانه یافت نشد.</div>`; return; }
+      if (!state.archiveHtmlSource) { resultsDiv.innerHTML = `<div style="background:rgba(239,68,68,0.06); border:1px solid #F87171; padding:14px; border-radius:var(--radius-sm); font-size:13px; color:#EF4444;">⚠️ فایل آرشیو بارگذاری نشده است. در تنظیمات فایل HTML آرشیو را آپلود کنید.</div>`; return; }
+      function stageMsg(n, msg) { resultsDiv.innerHTML = `<div class="stage-indicator"><div class="stage-spinner"></div><span>مرحله ${n} از ۳ — ${msg}</span></div>`; }
       const allLinks = getAllArchiveLinks();
       let matches = [];
       stageMsg('۱', `جستجو با کد IMDb: ${imdbID}`);
-      await new Promise(r => setTimeout(r, 50));
+      await tick();
       matches = searchByImdbId(allLinks, imdbID);
-      if (matches.length) return renderExtractedLinks(matches, item, resultsDiv, `🆔 یافت‌شده با کد IMDb`);
-      
-      stageMsg('۲', 'جستجوی ترکیبی هوشمند');
-      await new Promise(r => setTimeout(r, 50));
+      if (matches.length) return renderExtractedLinks(matches, item, resultsDiv, `🆔 یافت‌شده با کد IMDb: <b>${imdbID}</b>`);
+      stageMsg('۲', 'جستجوی ترکیبی');
+      await tick();
       matches = searchByBothStrict(allLinks, item.title, imdbID);
       if (matches.length) return renderExtractedLinks(matches, item, resultsDiv, `🔤+🆔 یافت‌شده با تطابق ترکیبی`);
-      
       stageMsg('۳', `جستجو با نام: ${item.title}`);
-      await new Promise(r => setTimeout(r, 50));
+      await tick();
       matches = searchByTitleOnly(allLinks, item.title);
-      if (matches.length) return renderExtractedLinks(matches, item, resultsDiv, `🔤 یافت‌شده با نام`);
-      
+      if (matches.length) return renderExtractedLinks(matches, item, resultsDiv, `🔤 یافت‌شده با نام: <b>${item.title}</b>`);
       resultsDiv.innerHTML = `
-        <div style="background:rgba(255,196,0,0.1); border:1px solid var(--amber); padding:20px; border-radius:var(--radius-sm); text-align:center;">
-          <div style="font-size:15px; font-weight:700; margin-bottom:12px; color:var(--amber);">⚠️ متأسفانه لینکی برای <b>${item.title}</b> در فایل آرشیو شما پیدا نشد.</div>
-          <button class="btn btn-stream" onclick="window.open('${BACKUP_ARCHIVE_URL.replace(/'/g,"\\'")}', '_blank')">🔗 جستجو به صورت آنلاین</button>
+        <div style="background:rgba(245,158,11,0.07); border:1px solid #F59E0B; padding:16px; border-radius:var(--radius-sm); text-align:center;">
+          <div style="font-size:15px; margin-bottom:10px;">⚠️ هیچ لینکی برای <b>${item.title}</b> در فایل آپلودی یافت نشد.</div>
+          <button class="btn btn-stream" onclick="window.open('${BACKUP_ARCHIVE_URL.replace(/'/g,"\\'")}', '_blank')">🔗 باز کردن آرشیو پشتیبان</button>
         </div>`;
     }
+
+    function tick() { return new Promise(r => setTimeout(r, 0)); }
 
     function renderExtractedLinks(matches, currentItem, resultsDiv, strategyLabel) {
       const isSeries = currentItem?.type === 'series';
@@ -1494,7 +2022,7 @@
         if (t.includes("2160p") || t.includes("4k")) q += "4K "; else if (t.includes("1080p")) q += "1080p "; else if (t.includes("720p")) q += "720p "; else if (t.includes("480p")) q += "480p ";
         if (t.includes("bluray")) q += "BluRay"; else if (t.includes("web-dl")||t.includes("webdl")) q += "Web-DL"; else if (t.includes("hdtv")) q += "HDTV";
         if (t.includes("x265")) q += " x265"; if (t.includes("10bit")) q += " 10bit";
-        return q.trim() || "لینک دانلود";
+        return q.trim() || "دانلود";
       }
       function extractFileSize(text) { const m = text.match(/(\d+(?:\.\d+)?\s*(?:GB|MB))/i); return m ? m[1] : ""; }
 
@@ -1505,19 +2033,19 @@
         else softSubLinks.push(m);
       });
 
-      let html = `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-        <span style="font-size:13px; font-weight:700; color:var(--text-secondary); background:var(--glass-bg); padding:6px 14px; border-radius:100px; border:1px solid var(--glass-border);">${strategyLabel} — ${matches.length} لینک</span>
-      </div><div style="display:flex; flex-direction:column; gap:16px;">`;
+      let html = `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <span style="font-size:12px; color:var(--text-secondary); background:var(--surface); padding:5px 12px; border-radius:20px; border:1px solid var(--border);">${strategyLabel} — ${matches.length} لینک</span>
+      </div><div class="quality-section-wrapper">`;
 
       if (!isSeries) {
         if (softSubLinks.length) {
-          html += `<div><div class="quality-block-title softsub">زبان اصلی (SoftSub)</div>`;
-          softSubLinks.forEach(m => { const q=cleanQualityStr(m.text||m.url), s=extractFileSize(m.text||m.url); html+=`<a href="${m.url}" target="_blank" class="movie-quality-line">📥 ${s?q+' <span style="color:var(--text-muted);">/ '+s+'</span>':q}</a>`; });
+          html += `<div><div class="quality-block-title softsub">SoftSub</div>`;
+          softSubLinks.forEach(m => { const q=cleanQualityStr(m.text||m.url), s=extractFileSize(m.text||m.url); html+=`<a href="${m.url}" target="_blank" class="movie-quality-line">📥 ${s?q+' / '+s:q}</a>`; });
           html += `</div>`;
         }
         if (dubbedLinks.length) {
-          html += `<div><div class="quality-block-title dubbed">دوبله فارسی (Dubbed)</div>`;
-          dubbedLinks.forEach(m => { const q=cleanQualityStr(m.text||m.url), s=extractFileSize(m.text||m.url); html+=`<a href="${m.url}" target="_blank" class="movie-quality-line">📥 ${s?q+' <span style="color:var(--text-muted);">/ '+s+'</span>':q}</a>`; });
+          html += `<div><div class="quality-block-title dubbed">Dubbed</div>`;
+          dubbedLinks.forEach(m => { const q=cleanQualityStr(m.text||m.url), s=extractFileSize(m.text||m.url); html+=`<a href="${m.url}" target="_blank" class="movie-quality-line">📥 ${s?q+' / '+s:q}</a>`; });
           html += `</div>`;
         }
       } else {
@@ -1535,22 +2063,25 @@
           });
           let out = `<div><div class="quality-block-title ${blockClass}">${label}</div>`;
           Object.keys(seasons).map(Number).sort((a,b)=>a-b).forEach(sn => {
-            out += `<div style="background:rgba(0,0,0,0.2); border:1px solid var(--glass-border); border-radius:var(--radius-sm); padding:16px; margin-bottom:12px;"><div style="font-size:15px; font-weight:800; color:var(--text-secondary); margin-bottom:12px;">Season ${sn}</div><div style="font-size:14px; font-weight:600; line-height:2; color:var(--text-primary); display:flex; flex-wrap:wrap; gap:8px;">`;
-            out += seasons[sn].map(m => `<a href="${m.url}" target="_blank" style="color:var(--cyan); text-decoration:none; background:var(--glass-bg); padding:4px 10px; border-radius:6px; border:1px solid var(--glass-border);">📥 ${cleanQualityStr(m.text||m.url)}</a>`).join('');
+            out += `<div class="series-season-container"><div class="series-season-title">Season ${sn}</div><div class="series-qualities-row">`;
+            out += seasons[sn].map(m => `<a href="${m.url}" target="_blank">📥 ${cleanQualityStr(m.text||m.url)}</a>`).join(' / ');
             out += `</div></div>`;
           });
           out += `</div>`;
           return out;
         }
-        html += renderSeriesGroup(softSubLinks, "زبان اصلی (SoftSub)", "softsub");
-        html += renderSeriesGroup(dubbedLinks, "دوبله فارسی (Dubbed)", "dubbed");
+        html += renderSeriesGroup(softSubLinks, "SoftSub", "softsub");
+        html += renderSeriesGroup(dubbedLinks, "Dubbed", "dubbed");
 
+        // ---- Series Continuation Button ----
         const totalSeasons = parseInt(currentItem?.totalSeasons) || 0;
         if (maxSeasonInArchive > 0 && totalSeasons > maxSeasonInArchive) {
           const nextOnline = maxSeasonInArchive + 1;
-          html += `<div style="margin-top:20px; background:var(--cyan-dim); border:1px solid var(--cyan); border-radius:var(--radius-sm); padding:20px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
-            <span style="font-size:14px; color:var(--text-primary); font-weight:600;">فصل‌های بیشتری موجود است — <strong>فصل ${nextOnline} تا ${totalSeasons}</strong> در آرشیو شما نیست!</span>
-            <button class="btn btn-stream-next" style="border-radius:100px;" onclick="window.open('${BACKUP_ARCHIVE_URL.replace(/'/g,"\\'")}', '_blank')">🌐 مشاهده فصل ${nextOnline}</button>
+          html += `<div class="series-continuation-block">
+            <span class="cont-text">فصل‌های بیشتری موجود است — <strong>فصل ${nextOnline} تا ${totalSeasons}</strong> در آرشیو آفلاین موجود نیست</span>
+            <button class="btn btn-stream-next" onclick="window.open('${BACKUP_ARCHIVE_URL.replace(/'/g,"\\'")}', '_blank')">
+              🌐 مشاهده فصل ${nextOnline} آنلاین
+            </button>
           </div>`;
         }
       }
@@ -1575,7 +2106,7 @@
     }
 
     function toggleVoiceInput() {
-      if (!recognition) { showToast("⚠️ مرورگر شما از تشخیص صدا پشتیبانی نمی‌کند.", 'error'); return; }
+      if (!recognition) { showToast("⚠️ تشخیص صدا در این مرورگر پشتیبانی نمی‌شود.", 'error'); return; }
       const recBtn = document.getElementById("voiceRecBtn");
       if (recBtn?.classList.contains("recording")) recognition.stop();
       else { setRecordingState(true); recognition.start(); }
@@ -1583,8 +2114,8 @@
     function setRecordingState(isRec) {
       const recBtn = document.getElementById("voiceRecBtn");
       if (!recBtn) return;
-      if (isRec) { recBtn.classList.add("recording"); recBtn.innerHTML = "🛑 توقف ضبط..."; }
-      else       { recBtn.classList.remove("recording"); recBtn.innerHTML = "🎙️ ضبط صدا (فارسی)"; }
+      if (isRec) { recBtn.classList.add("recording"); recBtn.innerHTML = "🛑 در حال ضبط..."; }
+      else       { recBtn.classList.remove("recording"); recBtn.innerHTML = "🎙️ ضبط صدا"; }
     }
     function saveAudioReview(id, text) { if (!id) return; state.audioReviews[id]=text; localStorage.setItem("cinetrack_audio_reviews", JSON.stringify(state.audioReviews)); }
 
@@ -1593,10 +2124,10 @@
       const item   = state.items.find(i => i.id === id);
       if (!item) return;
       const plotEl = document.getElementById(`plot_wrapper_${id}`);
-      if (plotEl) plotEl.innerHTML = `<span style="color:var(--cyan); font-weight:700;">⏳ ربات در حال ترجمه...</span>`;
+      if (plotEl) plotEl.innerHTML = `<span style="color:var(--cyan);">⏳ در حال ترجمه...</span>`;
       try {
-        const translated = await callAIAPI("Translate the following English movie plot into natural, fluent Persian (Farsi). Output ONLY the translation without any introduction.", item.plot);
-        if (translated) { item.plotFa = translated.trim(); saveStateToStorage(); renderHero(); showToast("ترجمه موفقیت‌آمیز بود!", 'success'); }
+        const translated = await callAIAPI("Translate the following English movie plot into natural, fluent Persian (Farsi). Output ONLY the translation.", item.plot);
+        if (translated) { item.plotFa = translated.trim(); saveStateToStorage(); renderHero(); }
       } catch (err) { if (plotEl) plotEl.innerHTML = `<span style="color:#EF4444;">خطا: ${err.message}</span>`; }
     }
 
@@ -1623,8 +2154,8 @@
           <div class="form-group"><label>فصل جاری:</label><input type="number" id="progressManageSeason" class="form-control" value="${item.season||1}" min="1" max="${item.totalSeasons||50}" onchange="fetchSeasonEpisodes('${item.id}', this.value)"></div>
           <div class="form-group"><label>قسمت جاری:</label><input type="number" id="progressManageEpisode" class="form-control" value="${item.episode||1}" min="1"></div>
         </div>
-        <div id="seasonEpisodesInfo" style="font-size:13px; font-weight:700; color:var(--cyan); margin-top:8px; margin-bottom:16px;"></div>
-        <button class="btn" style="width:100%; margin-top:16px; padding:14px; font-size:15px;" onclick="saveQuickProgress()">⚡ اعمال سریع تغییرات</button>`;
+        <div id="seasonEpisodesInfo" style="font-size:12px; color:var(--cyan); margin-top:4px; margin-bottom:10px;"></div>
+        <button class="btn" style="width:100%; margin-top:16px;" onclick="saveQuickProgress()">⚡ اعمال تغییرات</button>`;
       document.getElementById("progressModal").classList.add("active");
       fetchSeasonEpisodes(item.id, item.season||1);
     }
@@ -1639,7 +2170,7 @@
       season  = Math.max(1, Math.min(season, total)); episode = Math.max(1, episode);
       item.season=season; item.episode=episode; item.lastUpdated=new Date().toISOString();
       saveStateToStorage(); closeModal("progressModal"); renderHero(); renderGrid();
-      showToast(`✅ پیشرفت ذخیره شد.`, 'success');
+      showToast(`✅ پیشرفت «${item.title}» بروزرسانی شد.`, 'success');
     }
 
     async function incrementEpisode(id) {
@@ -1655,10 +2186,10 @@
         if (currentSeason >= totalSeasons) {
           item.status='Completed'; item.lastUpdated=new Date().toISOString();
           saveStateToStorage(); renderHero(); renderGrid(); renderWatchNext(); triggerConfetti();
-          document.getElementById('celebrationText').innerText = `شما تمام قسمت‌های «${item.title}» را دیدید! خسته نباشید!`;
+          document.getElementById('celebrationText').innerText = `شما تماشای سریال «${item.title}» را به پایان رساندید!`;
           document.getElementById('celebrationModal').classList.add('active');
           return;
-        } else { item.season=currentSeason+1; item.episode=1; showToast(`🎉 شروع فصل جدید (${item.season})!`, 'success'); }
+        } else { item.season=currentSeason+1; item.episode=1; showToast(`شروع فصل جدید (${item.season})! 🎉`, 'success'); }
       } else { item.episode=currentEpisode+1; }
       item.lastUpdated=new Date().toISOString(); saveStateToStorage(); renderHero(); renderGrid();
     }
@@ -1670,7 +2201,7 @@
       if (!state.selectedId || !state.items.length) {
         const nextUp = getTopWatchNext();
         if (nextUp) state.selectedId = nextUp.id;
-        else { container.innerHTML = `<div class="hero-empty"><div class="hero-empty-icon">🍿</div><p>کتابخانه شما خالی است. از بالا جستجو کنید!</p></div>`; return; }
+        else { container.innerHTML = `<div class="hero-empty"><div class="hero-empty-icon">🎬</div><p>فیلم یا سریالی را جستجو و انتخاب کنید.</p></div>`; return; }
       }
       const item = state.items.find(i => i.id === state.selectedId);
       if (!item) { state.selectedId = null; renderHero(); return; }
@@ -1680,53 +2211,53 @@
       let displayPlot = item.plot;
       if (state.uiLanguage === 'fa') {
         if (item.plotFa) { displayPlot = item.plotFa; }
-        else { displayPlot = `<div id="plot_wrapper_${item.id}"><span style="color:var(--text-secondary); font-size:14px; display:block; margin-bottom:12px;">خلاصه داستان هنوز به فارسی ترجمه نشده است.</span><button class="btn btn-secondary" style="border-radius:100px; padding:6px 16px;" onclick="translatePlotInline('${item.id}')">✨ ترجمه هوشمند (AI)</button></div>`; }
+        else { displayPlot = `<div id="plot_wrapper_${item.id}"><span style="color:var(--text-secondary); font-size:13px; display:block; margin-bottom:10px;">خلاصه داستان فارسی موجود نیست.</span><button class="btn btn-secondary" onclick="translatePlotInline('${item.id}')">✨ ترجمه با AI</button></div>`; }
       }
       container.innerHTML = `
         <div class="hero-content">
-          <img src="${item.poster !== 'N/A' ? item.poster : 'https://via.placeholder.com/220x320?text=No+Cover'}" class="hero-poster" loading="lazy">
+          <img src="${item.poster !== 'N/A' ? item.poster : 'https://via.placeholder.com/200x290?text=No+Cover'}" class="hero-poster" loading="lazy">
           <div class="hero-details">
             <h2 class="hero-title">${item.title}</h2>
             <div class="hero-meta">
               <span class="badge badge-status">${translateStatus(item.status)}</span>
               <span class="badge">⭐ IMDb ${item.imdbRating||'N/A'}</span>
               <span class="badge">📅 ${item.year||'N/A'}</span>
-              <span class="badge">امتیاز من: ${item.userRating > 0 ? renderStarsStatic(item.userRating) : '<span style="color:var(--text-muted);">ثبت نشده</span>'}</span>
+              <span class="badge">امتیاز من: ${item.userRating > 0 ? renderStarsStatic(item.userRating) : 'ثبت نشده'}</span>
             </div>
-            <div class="hero-extended-info liquid-glass">
+            <div class="hero-extended-info">
               <div class="extended-row"><strong>🎬 کارگردان:</strong> ${item.director||'نامشخص'}</div>
               <div class="extended-row"><strong>🎭 ستارگان:</strong> ${item.actors||'نامشخص'}</div>
               <div class="extended-row"><strong>🌍 کشور / زبان:</strong> ${item.country||'?'} / ${item.language||'?'}</div>
               <div class="extended-row"><strong>🏆 جوایز:</strong> ${item.awards||'بدون ثبت'}</div>
-              <div class="extended-row"><strong>🆔 کد IMDb:</strong> <code style="font-size:13px; background:rgba(0,0,0,0.3); padding:4px 10px; border-radius:8px; color:var(--cyan); font-weight:700;">${item.id}</code></div>
+              <div class="extended-row"><strong>🆔 IMDb ID:</strong> <code style="font-size:12px; background:var(--surface); padding:3px 8px; border-radius:6px; border:1px solid var(--border); color:var(--cyan);">${item.id}</code></div>
             </div>
             <div class="hero-plot">${displayPlot}</div>
             ${isSeries ? `
-              <div class="episode-progress-block liquid-glass">
+              <div class="episode-progress-block">
                 <div class="episode-progress-header">
-                  <span class="episode-progress-title">🍿 پیشرفت سریال</span>
-                  <span style="font-size:14px; font-weight:700; background:rgba(0,0,0,0.3); border:1px solid var(--glass-border); padding:4px 12px; border-radius:100px;">فصل ${item.season}، قسمت ${item.episode}</span>
+                  <span class="episode-progress-title">🍿 پیشرفت تماشا</span>
+                  <span class="episode-progress-count">فصل ${item.season}، قسمت ${item.episode}</span>
                 </div>
                 <div class="progress-container"><div class="progress-bar" style="width:${progressPct}%"></div></div>
-                <div style="text-align:left; font-size:13px; color:var(--text-secondary); margin-top:8px; font-weight:600;">${progressPct}% تکمیل</div>
+                <div style="text-align:left; font-size:12px; color:var(--text-secondary); margin-top:5px;">${progressPct}% تکمیل</div>
               </div>` : ''}
-            <div id="archiveMatchResults" style="margin-top:24px; margin-bottom:24px;"></div>
-            <div id="aiSimilarRecommendations" style="margin-top:24px; margin-bottom:24px; background:var(--cyan-dim); border:1px dashed var(--cyan); padding:20px; border-radius:var(--radius-sm); display:none;"></div>
-            <div class="audio-review-block liquid-glass">
+            <div id="archiveMatchResults" style="margin-top:18px; margin-bottom:18px;"></div>
+            <div id="aiSimilarRecommendations" style="margin-top:18px; margin-bottom:18px; background:rgba(96,165,250,0.05); border:1px dashed rgba(96,165,250,0.25); padding:16px; border-radius:var(--radius-sm); display:none;"></div>
+            <div class="audio-review-block">
               <div class="audio-controls">
-                <h4 style="font-size:15px; font-weight:800;">✍️ دفترچه یادداشت اختصاصی</h4>
-                <button id="voiceRecBtn" class="voice-rec-btn" onclick="toggleVoiceInput()">🎙️ ضبط صدا (فارسی)</button>
+                <h4 style="font-size:13px; font-weight:700;">✍️ نقد و نظر شخصی</h4>
+                <button id="voiceRecBtn" class="voice-rec-btn" onclick="toggleVoiceInput()">🎙️ ضبط صدا</button>
               </div>
-              <textarea id="audioReviewTextarea" class="review-textarea" placeholder="نقد، نظر، احساسات یا یادداشت خود در مورد این عنوان را اینجا بنویسید..."
+              <textarea id="audioReviewTextarea" class="review-textarea" placeholder="نقد یا یادداشت خود را بنویسید..."
                         oninput="saveAudioReview('${item.id}', this.value)">${savedReview}</textarea>
             </div>
             <div class="hero-actions">
-              ${isSeries && item.status !== 'Completed' ? `<button class="btn btn-stream-next" style="border-radius:100px;" onclick="incrementEpisode('${item.id}')">⏭️ قسمت بعدی را دیدم</button>` : ''}
-              <button class="btn btn-stream" style="border-radius:100px;" onclick="matchAndExtractLinks('${item.id}')">🔍 جستجوی لینک دانلود</button>
-              <button class="btn btn-secondary" style="border-radius:100px;" onclick="openEditModal('${item.id}')">✏️ ویرایش</button>
-              ${isSeries ? `<button class="btn btn-secondary" style="border-radius:100px;" onclick="openManageProgressModal('${item.id}')">⚙️ تغییر قسمت</button>` : ''}
-              <button class="btn btn-secondary" style="border-radius:100px;" onclick="generateSimilarRecommendations('${item.id}')">💡 پیشنهاد هوشمند مشابه</button>
-              <button class="btn btn-delete" style="border-radius:100px;" onclick="deleteItem('${item.id}')">🗑️ حذف</button>
+              ${isSeries && item.status !== 'Completed' ? `<button class="btn btn-stream-next" onclick="incrementEpisode('${item.id}')">⏭️ قسمت بعدی</button>` : ''}
+              <button class="btn btn-stream" onclick="matchAndExtractLinks('${item.id}')">🔍 استخراج لینک‌ها</button>
+              <button class="btn btn-secondary" onclick="openEditModal('${item.id}')">✏️ ویرایش</button>
+              ${isSeries ? `<button class="btn btn-secondary" onclick="openManageProgressModal('${item.id}')">⚙️ تغییر قسمت</button>` : ''}
+              <button class="btn btn-secondary" onclick="generateSimilarRecommendations('${item.id}')">💡 پیشنهاد مشابه</button>
+              <button class="btn btn-delete" onclick="deleteItem('${item.id}')">🗑️ حذف</button>
             </div>
           </div>
         </div>`;
@@ -1749,12 +2280,12 @@
       state.items.forEach(i => { if (i.genre && i.genre !== "N/A") i.genre.split(",").forEach(g => { const cg=g.trim(); genreFreq[cg]=(genreFreq[cg]||0)+1; }); });
       for (const g in genreFreq) if (genreFreq[g]>max) { max=genreFreq[g]; favGenre=g; }
       container.innerHTML = `
-        <div class="stat-card liquid-glass"><h3>${total}</h3><p>مجموع عناوین کتابخانه</p></div>
-        <div class="stat-card liquid-glass"><h3>${watching}</h3><p>⏳ در حال تماشا</p></div>
-        <div class="stat-card liquid-glass"><h3>${completed}</h3><p>✅ پایان یافته</p></div>
-        <div class="stat-card liquid-glass"><h3>⭐ ${imdbAvg}</h3><p>میانگین امتیاز IMDb</p></div>
-        <div class="stat-card liquid-glass"><h3>★ ${userAvg}</h3><p>میانگین امتیازات شما</p></div>
-        <div class="stat-card liquid-glass"><h3 style="font-size:18px; line-height:1.8; color:var(--cyan); background:none; -webkit-text-fill-color:var(--cyan);">${favGenre}</h3><p>🎭 ژانر محبوب شما</p></div>`;
+        <div class="stat-card"><h3>${total}</h3><p>کل عناوین</p></div>
+        <div class="stat-card"><h3>${watching}</h3><p>⏳ در حال تماشا</p></div>
+        <div class="stat-card"><h3>${completed}</h3><p>✅ تمام شده</p></div>
+        <div class="stat-card"><h3>⭐ ${imdbAvg}</h3><p>میانگین IMDb</p></div>
+        <div class="stat-card"><h3>★ ${userAvg}</h3><p>میانگین امتیاز من</p></div>
+        <div class="stat-card"><h3 style="font-size:14px; color:var(--cyan);">${favGenre}</h3><p>🎭 ژانر محبوب</p></div>`;
     }
 
     // ==================== AI RECOMMENDATIONS ====================
@@ -1764,15 +2295,15 @@
       const box = document.getElementById("aiSimilarRecommendations");
       if (!box) return;
       box.style.display = "block";
-      box.innerHTML = `<span style="color:var(--cyan); font-weight:700;">⏳ ربات در حال بررسی و تحلیل است...</span>`;
+      box.innerHTML = `<span style="color:var(--cyan);">⏳ در حال تحلیل...</span>`;
       try {
-        const analysis = await callAIAPI(`You are CineTrack AI. Recommend 5 movies or TV shows similar to the user's title. STRICTLY in Persian (Farsi). Use emojis, bold text, and bullet points.`, `Title: "${item.title}". Type: ${item.type}. Genre: ${item.genre}. Plot: ${item.plot}. Give 5 recommendations.`);
-        box.innerHTML = `<div style="display:flex; justify-content:space-between; margin-bottom:16px;">
-          <h4 style="font-size:16px; font-weight:900; color:var(--cyan);">🤖 عناوین مشابه پیشنهادی</h4>
-          <button class="icon-btn" style="width:28px; height:28px;" onclick="document.getElementById('aiSimilarRecommendations').style.display='none'">✕</button>
+        const analysis = await callAIAPI(`You are CineTrack AI. Recommend 5 movies or TV shows similar to the user's title. STRICTLY in Persian (Farsi). Use emojis and bullet points.`, `Title: "${item.title}". Type: ${item.type}. Genre: ${item.genre}. Plot: ${item.plot}. Give 5 recommendations.`);
+        box.innerHTML = `<div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+          <h4 style="font-size:14px; font-weight:800;">🤖 عناوین مشابه</h4>
+          <button class="btn btn-secondary" style="padding:2px 8px; font-size:11px;" onclick="document.getElementById('aiSimilarRecommendations').style.display='none'">✕</button>
         </div>
-        <div style="font-size:15px; line-height:2; white-space:pre-wrap; color:var(--text-primary);">${sanitizeAIResponse(analysis)}</div>`;
-      } catch (err) { box.innerHTML = `<span style="color:#EF4444; font-weight:700;">خطا در ارتباط با هوش مصنوعی: ${err.message}</span>`; }
+        <div style="font-size:14px; line-height:1.9; white-space:pre-wrap;">${sanitizeAIResponse(analysis)}</div>`;
+      } catch (err) { box.innerHTML = `<span style="color:#EF4444;">خطا: ${err.message}</span>`; }
     }
 
     async function generateGlobalAIAnalysis(forceRegen = false) {
@@ -1780,16 +2311,16 @@
       const btn         = document.getElementById("globalAiAnalyzeBtn");
       const responseBox = document.getElementById("globalAiResponse");
       if (btn) btn.disabled = true;
-      responseBox.innerHTML = "<span style='color:var(--cyan); font-weight:700;'>⏳ هوش مصنوعی در حال اسکن کل آرشیو شما است...</span>";
+      responseBox.innerText = "⏳ در حال آنالیز...";
       const safeData  = state.items.map(i => ({ title:i.title, type:i.type, genre:i.genre, rating:i.imdbRating }));
       try {
-        const analysis  = await callAIAPI(`You are CineTrack AI Brain. Analyze the user's media collection. STRICTLY in Persian (Farsi). Highlight patterns, favorite genres, and suggest missing masterpieces. Use beautiful formatting with emojis and modern spacing.`, JSON.stringify(safeData));
+        const analysis  = await callAIAPI(`You are CineTrack AI Brain. Analyze the user's media collection. STRICTLY in Persian (Farsi). Highlight patterns, favorite genres, and suggest missing masterpieces. Use beautiful formatting with emojis.`, JSON.stringify(safeData));
         const sanitized = sanitizeAIResponse(analysis);
         state.globalAiCache = sanitized;
         localStorage.setItem("cinetrack_global_ai_cache", sanitized);
         responseBox.innerHTML = sanitized;
         document.getElementById("regenGlobalAiBtn").style.display = "inline-flex";
-      } catch (err) { responseBox.innerHTML = `<span style='color:#EF4444;'>خطا: ${err.message}</span>`; }
+      } catch (err) { responseBox.innerText = `خطا: ${err.message}`; }
       finally { if (btn) btn.disabled = false; }
     }
 
@@ -1802,7 +2333,7 @@
         dlAnchor.setAttribute("download", `cinetrack_library_${new Date().toISOString().slice(0,10)}.json`);
         document.body.appendChild(dlAnchor); dlAnchor.click(); dlAnchor.remove();
         showToast("📤 فایل بکاپ دانلود شد.", 'success');
-      } catch (e) { showToast("⚠️ خطا در ایجاد بکاپ.", 'error'); }
+      } catch (e) { showToast("⚠️ خطا در صادر کردن فایل.", 'error'); }
     }
 
     function importLibrary(event) {
@@ -1811,9 +2342,9 @@
       reader.onload = function(e) {
         try {
           const parsed = JSON.parse(e.target.result);
-          if (Array.isArray(parsed)) { state.items=parsed; saveStateToStorage(); init(); showToast(`✅ ${parsed.length} عنوان با موفقیت بازیابی شد.`, 'success'); }
+          if (Array.isArray(parsed)) { state.items=parsed; saveStateToStorage(); init(); showToast(`✅ ${parsed.length} عنوان از بکاپ بارگذاری شد.`, 'success'); }
           else { showToast("❌ فایل نامعتبر.", 'error'); }
-        } catch (err) { showToast("❌ ساختار فایل JSON مشکل دارد.", 'error'); }
+        } catch (err) { showToast("❌ فایل JSON نامعتبر است.", 'error'); }
       };
       reader.readAsText(file); event.target.value = "";
     }
@@ -1841,9 +2372,8 @@
       state.glassEffects = glassEnabled;
       localStorage.setItem("cinetrack_glass", glassEnabled ? "true" : "false");
       applyGlassEffects(glassEnabled);
-      
       closeModal('settingsModal'); renderHero();
-      showToast("✅ تنظیمات با موفقیت اعمال و ذخیره شد.", 'success');
+      showToast("✅ تنظیمات ذخیره شد.", 'success');
     }
 
     function closeModal(id) { document.getElementById(id)?.classList.remove("active"); }
@@ -1861,18 +2391,19 @@
 
     function toggleAIChat() {
       const panel  = document.getElementById('aiChatPanel');
+      const btn    = document.getElementById('aiFloatBtn');
       aiChatIsOpen = !aiChatIsOpen;
       panel.classList.toggle('open', aiChatIsOpen);
       document.getElementById('aiIconSparkle').style.display = aiChatIsOpen ? 'none' : '';
       document.getElementById('aiIconClose').style.display   = aiChatIsOpen ? '' : 'none';
-      document.getElementById('aiFloatLabel').textContent    = aiChatIsOpen ? 'بستن' : 'دستیار AI';
+      document.getElementById('aiFloatLabel').textContent    = aiChatIsOpen ? 'بستن' : 'دستیار';
       if (aiChatIsOpen) setTimeout(() => document.getElementById('aiChatInput')?.focus(), 350);
     }
 
     function clearAIChat() {
       aiChatHistory = [];
       const msgs = document.getElementById('aiChatMessages');
-      if (msgs) { msgs.innerHTML = ''; addBotBubble('حافظه چت پاک شد 🗑️. الان چه کمکی از دستم برمیاد؟'); }
+      if (msgs) { msgs.innerHTML = ''; addBotBubble('چت پاک شد. 🗑️ چطور می‌تونم کمکت کنم؟'); }
     }
 
     function addUserBubble(html) {
@@ -1890,11 +2421,27 @@
       return div;
     }
 
+    function addActionBubble(html) {
+      const msgs = document.getElementById('aiChatMessages'); if (!msgs) return;
+      const div  = document.createElement('div'); div.className = 'ai-bubble action';
+      div.innerHTML = `<div class="ai-bubble-content">${html}</div>`;
+      msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+      return div;
+    }
+
+    function showAITyping() {
+      const msgs = document.getElementById('aiChatMessages'); if (!msgs) return null;
+      const div  = document.createElement('div'); div.className = 'ai-bubble bot'; div.id = 'aiTypingIndicator';
+      div.innerHTML = `<div class="ai-bubble-content"><div class="ai-typing-dots"><span></span><span></span><span></span></div></div>`;
+      msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+      return div;
+    }
+
     function setAIStatus(busy) {
       const el = document.getElementById('aiStatusLabel');
       if (!el) return;
-      el.textContent = busy ? '● در حال پردازش...' : '● آنلاین و آماده';
-      el.style.color = busy ? 'var(--amber)' : 'var(--green)';
+      el.textContent = busy ? '● در حال پردازش...' : '● آماده';
+      el.className = 'ai-chat-header-status' + (busy ? ' busy' : '');
     }
 
     async function sendAIChatMessage() {
@@ -1906,26 +2453,137 @@
       addUserBubble(raw.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"));
       aiChatHistory.push({ role:'user', content:raw });
       sendBtn.disabled = true; setAIStatus(true);
-      
-      const typingDiv = document.createElement('div');
-      typingDiv.className = 'ai-bubble bot';
-      typingDiv.innerHTML = `<div class="ai-bubble-content"><span style="color:var(--cyan); font-weight:700;">درحال نوشتن...</span></div>`;
-      document.getElementById('aiChatMessages').appendChild(typingDiv);
-      document.getElementById('aiChatMessages').scrollTop = document.getElementById('aiChatMessages').scrollHeight;
-      
-      const libraryContext = JSON.stringify(state.items.map(i => ({ id:i.id, title:i.title, type:i.type, status:i.status, imdbRating:i.imdbRating, genre:i.genre })));
-      const systemPrompt = `You are CineTrack AI, a smart assistant for a Persian movie/series tracking app. The user's library: ${libraryContext}. Always respond in the SAME language as the user (Persian if they write Persian, English if English). Be concise, helpful, and use markdown formatting.`;
-      
+      const typing = showAITyping();
+      const libraryContext = JSON.stringify(state.items.map(i => ({ id:i.id, title:i.title, type:i.type, status:i.status, season:i.season, episode:i.episode, totalSeasons:i.totalSeasons, imdbRating:i.imdbRating, userRating:i.userRating, genre:i.genre })));
+      const systemPrompt = `You are CineTrack AI, a smart assistant for a Persian movie/series tracking app. The user's library: ${libraryContext}. You can output special commands on a separate line: SEARCH_OMDB(query), SELECT_ITEM(imdbID), UPDATE_STATUS(imdbID,status), UPDATE_RATING(imdbID,rating), UPDATE_PROGRESS(imdbID,season,episode). Always respond in the SAME language as the user (Persian if they write Persian, English if English). Be concise and helpful.`;
       try {
         const messages = [{ role:'system', content:systemPrompt }, ...aiChatHistory];
         const reply    = await callAIAPIWithMessages(messages, 0.7);
         aiChatHistory.push({ role:'assistant', content:reply });
-        typingDiv.remove();
-        addBotBubble(sanitizeAIResponse(reply));
+        if (typing) typing.remove();
+        await processAIReply(reply);
       } catch (err) {
-        typingDiv.remove();
-        addBotBubble(`<span style="color:#EF4444; font-weight:700;">خطا: ${sanitizeAIResponse(err.message)}</span>`);
+        if (typing) typing.remove();
+        addBotBubble(`<span style="color:#EF4444;">خطا: ${sanitizeAIResponse(err.message)}</span>`);
       } finally { sendBtn.disabled=false; setAIStatus(false); }
+    }
+
+    async function processAIReply(reply) {
+      const lines    = reply.split('\n');
+      const textLines = [], cmdLines = [];
+      lines.forEach(l => { const t=l.trim(); if (/^(SEARCH_OMDB|SELECT_ITEM|UPDATE_STATUS|UPDATE_RATING|UPDATE_PROGRESS)\(/.test(t)) cmdLines.push(t); else textLines.push(l); });
+      const textContent = textLines.join('\n').trim();
+      if (textContent) addBotBubble(sanitizeAIResponse(textContent));
+      for (const cmd of cmdLines) { await executeAICommand(cmd); }
+    }
+
+    async function executeAICommand(cmd) {
+      const match = cmd.match(/^(\w+)\((.+)\)$/);
+      if (!match) return;
+      const [, name, argStr] = match;
+      const args = argStr.split(',').map(a => a.trim().replace(/^["']|["']$/g,''));
+      switch (name) {
+        case 'SEARCH_OMDB': {
+          const query = args[0]; if (!query) break;
+          const uid = 'ai_search_' + Date.now();
+          addActionBubble(`<div id="${uid}" style="font-size:13px; color:var(--text-secondary);">🔍 در حال جستجو برای «${sanitizeAIResponse(query)}»...</div>`);
+          try {
+            const res = await performSearch(query, 1);
+            const container = document.getElementById(uid);
+            if (!container) break;
+            if (!res.results.length) { container.innerHTML = `<span style="color:var(--text-secondary);">نتیجه‌ای یافت نشد.</span>`; break; }
+            container.innerHTML = res.results.slice(0,5).map(r => `
+              <div class="ai-search-result-row">
+                <img src="${r.Poster !== 'N/A' ? r.Poster : 'https://via.placeholder.com/32x47?text=No'}" alt="" loading="lazy">
+                <div class="ai-search-result-info"><h5>${r.Title}</h5><p>${r.Year} · ${translateType(r.Type)}</p></div>
+                <button class="btn" style="padding:3px 9px; font-size:11px;" onclick="aiOpenAddModal('${r.imdbID}')">+ افزودن</button>
+              </div>`).join('');
+          } catch (e) {
+            const container = document.getElementById(uid);
+            if (container) container.innerHTML = `<span style="color:#EF4444; font-size:12px;">خطا: ${e.message}</span>`;
+          }
+          break;
+        }
+        case 'SELECT_ITEM': {
+          const imdbID = args[0]?.trim();
+          const item   = imdbID && state.items.find(i => i.id === imdbID);
+          if (item) { selectGridItem(imdbID); addBotBubble(`📌 عنوان <b>${item.title}</b> نمایش داده شد.`); }
+          break;
+        }
+        case 'UPDATE_STATUS': {
+          const [imdbID, newStatus] = args;
+          const item = imdbID && state.items.find(i => i.id === imdbID?.trim());
+          if (item && ['Watching','Planned','Completed'].includes(newStatus?.trim())) {
+            addActionBubble(`<div class="ai-confirm-card">
+              <p>تغییر وضعیت <b>${item.title}</b> به «${translateStatus(newStatus.trim())}»؟</p>
+              <div class="ai-confirm-btns">
+                <button class="btn" style="padding:5px 12px; font-size:12px;" onclick="aiDoUpdateStatus('${imdbID}','${newStatus.trim()}',this.closest('.ai-bubble'))">✅ تأیید</button>
+                <button class="btn btn-secondary" style="padding:5px 12px; font-size:12px;" onclick="this.closest('.ai-bubble').remove()">❌ لغو</button>
+              </div></div>`);
+          }
+          break;
+        }
+        case 'UPDATE_RATING': {
+          const [imdbID, ratingStr] = args;
+          const rating = parseInt(ratingStr);
+          const item   = imdbID && state.items.find(i => i.id === imdbID?.trim());
+          if (item && !isNaN(rating) && rating >= 1 && rating <= 5) {
+            item.userRating=rating; item.lastUpdated=new Date().toISOString();
+            saveStateToStorage(); renderHero(); renderGrid();
+            addBotBubble(`⭐ امتیاز <b>${item.title}</b> به ${rating}/5 تغییر کرد.`);
+          }
+          break;
+        }
+        case 'UPDATE_PROGRESS': {
+          const [imdbID, seasonStr, episodeStr] = args;
+          const season  = parseInt(seasonStr), episode = parseInt(episodeStr);
+          const item    = imdbID && state.items.find(i => i.id === imdbID?.trim());
+          if (item && item.type === 'series' && !isNaN(season) && !isNaN(episode)) {
+            addActionBubble(`<div class="ai-confirm-card">
+              <p>بروزرسانی پیشرفت <b>${item.title}</b> به فصل ${season}، قسمت ${episode}؟</p>
+              <div class="ai-confirm-btns">
+                <button class="btn" style="padding:5px 12px; font-size:12px;" onclick="aiDoUpdateProgress('${imdbID}',${season},${episode},this.closest('.ai-bubble'))">✅ تأیید</button>
+                <button class="btn btn-secondary" style="padding:5px 12px; font-size:12px;" onclick="this.closest('.ai-bubble').remove()">❌ لغو</button>
+              </div></div>`);
+          }
+          break;
+        }
+      }
+    }
+
+    function aiDoUpdateStatus(imdbID, newStatus, bubbleEl) {
+      const item = state.items.find(i => i.id === imdbID);
+      if (!item) return;
+      const oldStatus  = item.status;
+      item.status      = newStatus; item.lastUpdated = new Date().toISOString();
+      if (oldStatus !== 'Completed' && newStatus === 'Completed') triggerConfetti();
+      saveStateToStorage(); renderHero(); renderGrid(); renderWatchNext();
+      if (bubbleEl) bubbleEl.querySelector('.ai-bubble-content').innerHTML = `<span style="color:var(--green);">✅ وضعیت <b>${item.title}</b> به «${translateStatus(newStatus)}» تغییر کرد.</span>`;
+      showToast(`✅ وضعیت «${item.title}» بروزرسانی شد.`, 'success');
+    }
+
+    function aiDoUpdateProgress(imdbID, season, episode, bubbleEl) {
+      const item = state.items.find(i => i.id === imdbID);
+      if (!item) return;
+      item.season=season; item.episode=episode; item.lastUpdated=new Date().toISOString();
+      saveStateToStorage(); renderHero(); renderGrid();
+      if (bubbleEl) bubbleEl.querySelector('.ai-bubble-content').innerHTML = `<span style="color:var(--green);">✅ پیشرفت <b>${item.title}</b> به S${season}E${episode} بروزرسانی شد.</span>`;
+      showToast(`✅ پیشرفت «${item.title}» بروزرسانی شد.`, 'success');
+    }
+
+    async function aiOpenAddModal(imdbID) {
+      try {
+        let movieData = state.omdbCache[imdbID];
+        if (!movieData) {
+          addBotBubble('⏳ در حال دریافت اطلاعات...');
+          const res  = await fetch(`https://www.omdbapi.com/?apikey=${OMDB_KEY}&i=${imdbID}&plot=full`);
+          const data = await res.json();
+          if (data.Response === 'True') { movieData=data; state.omdbCache[imdbID]=movieData; localStorage.setItem('cinetrack_omdb_cache', JSON.stringify(state.omdbCache)); }
+          else { addBotBubble('❌ اطلاعات عنوان یافت نشد.'); return; }
+        }
+        openAddModal(movieData);
+        addBotBubble(`📋 فرم اضافه کردن <b>${movieData.Title}</b> باز شد.`);
+      } catch (e) { addBotBubble(`❌ خطا: ${sanitizeAIResponse(e.message)}`); }
     }
 
     function sendQuickAI(text) {
@@ -1946,9 +2604,16 @@
       renderDashboard(); extractAndRenderGenres(); renderGrid(); renderHero();
       setupFilterButtonsUI(); renderWatchNext(); initSpeechRecognition();
 
+      const langSelect = document.getElementById("uiLanguageSetting");
+      if (langSelect) langSelect.value = state.uiLanguage;
+      const themeSelect = document.getElementById("themeSetting");
+      if (themeSelect) themeSelect.value = state.theme;
+      const glassCheck = document.getElementById("glassEffectsSetting");
+      if (glassCheck) glassCheck.checked = state.glassEffects;
+
       if (state.archiveHtmlSource) {
         const statusEl = document.getElementById("archiveUploadStatus");
-        if (statusEl) { statusEl.style.color='var(--green)'; statusEl.textContent=`✅ آرشیو قبلاً بارگذاری شده (${Math.round(state.archiveHtmlSource.length/1024)} KB).`; }
+        if (statusEl) { statusEl.style.color='#10B981'; statusEl.textContent=`✅ آرشیو بارگذاری شده (${Math.round(state.archiveHtmlSource.length/1024)} KB).`; }
       }
 
       const notesEl = document.getElementById("generalNotesTextArea");
@@ -1963,7 +2628,7 @@
 
       const msgs = document.getElementById('aiChatMessages');
       if (msgs && !msgs.children.length) {
-        addBotBubble(`سلام! 👋 من هوش مصنوعی اختصاصی CineTrack هستم.<br>در حال حاضر <b>${state.items.length}</b> عنوان در آرشیو شما وجود داره. چه کمکی می‌تونم بکنم؟`);
+        addBotBubble(`سلام! 👋 من دستیار CineTrack هستم.<br>کتابخانه شما <b>${state.items.length}</b> عنوان دارد. چطور می‌تونم کمکت کنم؟<br><small style="color:var(--text-secondary);">از دکمه‌های بالا یا تایپ مستقیم استفاده کن.</small>`);
       }
     }
 
